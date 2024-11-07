@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #dad2d8;
+  --foreground: #143642;
+  --accent: #ef6461;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #143642;
+    --foreground: #dad2d8;
+    --accent: #ef6461;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+
+.font-fredoka {
+  font-family: var(--font-fredoka), sans-serif;
+}
+
+.font-merriweather-sans {
+  font-family: var(--font-merriweather-sans), sans-serif;
+}
+
+html {
+  height: 100%;
+}
