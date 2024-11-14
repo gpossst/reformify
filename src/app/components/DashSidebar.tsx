@@ -50,10 +50,10 @@ function DashSidebar() {
         <div className="w-8">
           <Logo size={32} clickable={false} />
         </div>
-        <div className="text-2xl font-bold font-fredoka">Formify</div>
+        <div className="text-2xl font-bold font-fredoka">Reformify</div>
       </div>
       <div className="flex flex-col justify-between h-[calc(100vh-80px)] overflow-y-auto">
-        <div className="p-4 space-y-2">
+        <div className="p-2 space-y-2">
           {menuItems.map((item) => (
             <div
               key={item.path}

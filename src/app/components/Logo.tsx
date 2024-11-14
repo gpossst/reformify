@@ -9,17 +9,17 @@ function Logo({ size, clickable }: { size: number; clickable: boolean }) {
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
   const [pointer, setPointer] = useState("false");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     if (clickable) {
       setPointer("cursor-pointer");
     } else {
       setPointer("");
     }
-    // Check initial preference
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setDarkMode(true);
-      document.documentElement.classList.add("dark");
     }
   }, []);
 
@@ -28,6 +28,10 @@ function Logo({ size, clickable }: { size: number; clickable: boolean }) {
       router.push("/");
     }
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className={pointer} onClick={handleClick}>

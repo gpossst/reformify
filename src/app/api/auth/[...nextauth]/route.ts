@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import clientPromise from "@/app/lib/mongodb";
 
 const handler = NextAuth({
   providers: [
@@ -8,6 +11,20 @@ const handler = NextAuth({
       clientSecret: process.env.GITHUB_SECRET!,
     }),
   ],
+  adapter: MongoDBAdapter(clientPromise, {
+    databaseName: "db1",
+    collections: {
+      Users: "users",
+    },
+  }),
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      return true;
+    },
+    async session({ session, user }) {
+      return session;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };

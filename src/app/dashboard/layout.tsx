@@ -28,13 +28,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const bodyClasses = `${fredoka.variable} ${merriweatherSans.variable} antialiased h-full flex bg-foreground p-2`;
+
   return (
     <html lang="en">
-      <body
-        className={`${fredoka.variable} ${merriweatherSans.variable} antialiased h-full flex bg-foreground p-2`}
-      >
+      <body className={bodyClasses}>
         <DashSidebar />
-        <div className="h-full w-full flex flex-col items-center pl-2">
+        <div className="h-full w-full flex flex-4 flex-col items-center pl-2">
           <div className="flex-1 w-full bg-background rounded-xl shadow-2xl">
             {children}
           </div>
