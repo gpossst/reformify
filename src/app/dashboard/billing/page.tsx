@@ -4,12 +4,14 @@ import React from "react";
 
 function page() {
   return (
-    <div className="h-full">
+    <div className="h-full flex flex-col">
       <div className="flex justify-between items-center px-12 pt-4">
         <div className="text-3xl font-semibold font-fredoka">Billing</div>
         <BillingNav />
       </div>
-      <BillingHistory />
+      <div className="flex-1 min-h-0">
+        <BillingHistory />
+      </div>
     </div>
   );
 }

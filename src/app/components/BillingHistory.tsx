@@ -24,7 +24,7 @@ function BillingHistory() {
   }, [session]);
 
   return (
-    <div className="h-[92.5%] flex flex-col p-8">
+    <div className="h-full flex flex-col p-8">
       <div className="font-fredoka text-xl text-center pb-2 font-bold">
         History
       </div>
