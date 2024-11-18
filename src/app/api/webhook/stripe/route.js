@@ -113,6 +113,26 @@ export async function POST(req) {
         break;
       }
 
+      case "customer.subscription.updated": {
+        console.log("customer.subscription.updated");
+
+        const session = await stripe.checkout.sessions.retrieve(
+          data.object.id,
+          {
+            expand: ["line_items"],
+          }
+        );
+
+        const customerId = session?.customer;
+        const customer = await stripe.customers.retrieve(customerId);
+
+        await db
+          .collection("users")
+          .updateOne({ email: customer.email }, { $set: { entryCount: 0 } });
+
+        break;
+      }
+
       default:
       // Unhandled event type
     }

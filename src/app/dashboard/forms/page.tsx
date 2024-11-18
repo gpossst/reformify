@@ -1,4 +1,5 @@
 import DashButton from "@/app/components/DashButton";
+import FormAllowances from "@/app/components/FormAllowances";
 
 function Page() {
   return (
@@ -11,6 +12,9 @@ function Page() {
         <div className="flex-1 flex justify-end">
           <DashButton link="/dashboard/forms/create" text="New Form" />
         </div>
+      </div>
+      <div className="m-4">
+        <FormAllowances />
       </div>
     </div>
   );
