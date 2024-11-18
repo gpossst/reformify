@@ -3,11 +3,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-
+import LoadIcon from "./LoadIcon";
 function BillingHistory() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [transactions, setTransactions] = useState<any[]>([]);
   const { data: session } = useSession();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function fetchTransactions() {
@@ -18,16 +19,14 @@ function BillingHistory() {
         const data = await response.json();
         setTransactions(data.transactions || []);
       }
+      setLoading(false);
     }
 
     fetchTransactions();
   }, [session]);
 
   return (
-    <div className="h-full flex flex-col p-8">
-      <div className="font-fredoka text-xl text-center pb-2 font-bold">
-        History
-      </div>
+    <div className="h-full flex flex-col p-4">
       <div className="bg-foreground text-background p-4 font-merriweather rounded-xl flex-1 flex flex-col min-h-0">
         {/* Fixed Header */}
         <div className="grid grid-cols-3 gap-4 pb-2">
@@ -35,6 +34,8 @@ function BillingHistory() {
           <div className="font-bold">Amount</div>
           <div className="font-bold">Status</div>
         </div>
+
+        {loading ? <LoadIcon color="accent" size={20} /> : null}
 
         {/* Scrollable Content */}
         <div className="overflow-y-auto flex-1 min-h-0">

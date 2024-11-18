@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 function DocumentationButton() {
   const router = useRouter();
@@ -12,7 +12,7 @@ function DocumentationButton() {
       onClick={() => router.push("/docs")}
     >
       <div className="h-[30px] flex items-center">Documentation</div>
-      <MdKeyboardArrowRight />
+      <MdKeyboardDoubleArrowRight />
     </button>
   );
 }

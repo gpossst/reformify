@@ -1,3 +1,5 @@
+import LoadIcon from "./LoadIcon";
+
 interface ButtonProps {
   plan: "small" | "medium" | "large" | "enterprise";
   userPlan: string;
@@ -13,8 +15,8 @@ interface ButtonProps {
 function SwitchPlanButton({ plan, userPlan, planData, email }: ButtonProps) {
   if (userPlan === "loading") {
     return (
-      <div className="px-2 w-full flex items-center justify-center text-center gap-2 text-foreground text-lg font-semibold py-1 bg-accent border-accent border-2 rounded-md hover:bg-accent">
-        Loading...
+      <div className="py-3 w-full flex items-center justify-center text-center gap-2 text-foreground text-lg font-semibold bg-accent border-accent border-2 rounded-md hover:bg-accent">
+        <LoadIcon color="white" size={10} />
       </div>
     );
   }
