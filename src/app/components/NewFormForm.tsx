@@ -90,6 +90,15 @@ function NewFormForm() {
         finish();
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to create form");
+        if (
+          err instanceof Error &&
+          err.message === "Maximum form limit reached for your plan"
+        ) {
+          setError("Form limit reached! Redirecting to upgrade...");
+          setTimeout(() => {
+            router.push(`/dashboard/billing/pricing`);
+          }, 3000);
+        }
       }
     } else {
       setPressed(false);
@@ -100,7 +109,7 @@ function NewFormForm() {
     setCompleted(true);
     setTimeout(() => {
       router.push(`/dashboard/forms/`);
-    }, 2000);
+    }, 1000);
   };
 
   return (
