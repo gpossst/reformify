@@ -1,4 +1,5 @@
 import DashButton from "@/app/components/DashButton";
+import EntriesGraph from "@/app/components/EntriesGraph";
 import FormAllowances from "@/app/components/FormAllowances";
 
 function Page() {
@@ -16,7 +17,7 @@ function Page() {
       <div className="flex flex-col flex-1 p-4 gap-4">
         <div className="flex gap-4">
           <FormAllowances />
-          <div className="flex flex-[2] h-full bg-foreground rounded-lg p-4"></div>
+          <EntriesGraph />
         </div>
         <div className="bg-foreground rounded-lg flex-1"></div>
       </div>
