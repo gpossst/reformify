@@ -23,7 +23,7 @@ function Logo({ size, clickable }: { size: number; clickable: boolean }) {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setDarkMode(true);
     }
-  }, []);
+  }, [clickable]);
 
   const handleClick = () => {
     if (clickable) {
