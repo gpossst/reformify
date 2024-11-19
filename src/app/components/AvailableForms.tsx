@@ -25,7 +25,6 @@ function AvailableForms({ forms }: { forms: boolean }) {
 
   // Usage:
   const accentColor = getThemeColor("--accent");
-  const foregroundColor = getThemeColor("--foreground");
   const backgroundColor = getThemeColor("--background");
 
   useEffect(() => {
@@ -64,7 +63,7 @@ function AvailableForms({ forms }: { forms: boolean }) {
 
   if (forms) {
     return (
-      <div className="w-40 h-40 flex flex-col items-center justify-center">
+      <div className=" flex flex-col items-center justify-center">
         <CircularProgressbarWithChildren
           value={user?.formCount ?? 0}
           maxValue={possibleForms}
@@ -76,7 +75,7 @@ function AvailableForms({ forms }: { forms: boolean }) {
         >
           <div className="text-background font-merriweather text-lg font-semibold">
             {loading ? (
-              <LoadIcon color="white" size={10} />
+              <LoadIcon color="accent" size={10} />
             ) : (
               `${user?.formCount ?? 0} / ${possibleForms}`
             )}
@@ -89,7 +88,7 @@ function AvailableForms({ forms }: { forms: boolean }) {
     );
   } else {
     return (
-      <div className="w-40 h-40 flex flex-col items-center justify-center">
+      <div className=" flex flex-col items-center justify-center">
         <CircularProgressbarWithChildren
           value={user?.entryCount ?? 0}
           maxValue={possibleEntries}
@@ -101,7 +100,7 @@ function AvailableForms({ forms }: { forms: boolean }) {
         >
           <div className="text-background font-merriweather text-lg font-semibold">
             {loading ? (
-              <LoadIcon color="white" size={10} />
+              <LoadIcon color="accent" size={10} />
             ) : (
               `${user?.entryCount ?? 0} / ${possibleEntries}`
             )}

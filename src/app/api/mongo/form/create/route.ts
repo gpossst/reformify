@@ -6,6 +6,11 @@ export async function POST(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const email = searchParams.get("email");
 
+  const apiSecret = request.headers.get("x-api-secret");
+  if (apiSecret !== process.env.NEXT_PUBLIC_API_SECRET) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   if (!email) {
     return NextResponse.json({ error: "Email is required" }, { status: 400 });
   }
@@ -56,20 +61,14 @@ export async function POST(request: NextRequest) {
       entries: [],
     });
 
-    await db.collection("users").updateOne(
-      { email },
-      // @ts-expect-error - Gets type error for pushing ObjectId
-      { $inc: { formCount: 1 }, $push: { forms: formId } }
-    );
+    await db
+      .collection("users")
+      .updateOne({ email }, { $inc: { formCount: 1 } });
 
     await client.close();
 
     return NextResponse.json(form);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to connect to MongoDB" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }

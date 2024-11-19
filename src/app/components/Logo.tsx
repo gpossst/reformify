@@ -1,5 +1,7 @@
 "use client";
 
+// TODO: Could work with color checking system in AvailableForms.tsx (gives console errors, but works)
+
 import React from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";

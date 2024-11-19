@@ -13,8 +13,12 @@ function Page() {
           <DashButton link="/dashboard/forms/create" text="New Form" />
         </div>
       </div>
-      <div className="m-4">
-        <FormAllowances />
+      <div className="flex flex-col flex-1 p-4 gap-4">
+        <div className="flex gap-4">
+          <FormAllowances />
+          <div className="flex flex-[2] h-full bg-foreground rounded-lg p-4"></div>
+        </div>
+        <div className="bg-foreground rounded-lg flex-1"></div>
       </div>
     </div>
   );
