@@ -238,13 +238,21 @@ function EntriesGraph() {
           <LineChart data={activeData.data} margin={{ right: 40 }}>
             <XAxis
               dataKey={activeData.dataKey}
-              tick={{ fontFamily: "var(--font-merriweather-sans)" }}
+              tick={{
+                fontFamily: "var(--font-merriweather-sans)",
+                fill: "var(--background)",
+              }}
+              stroke="var(--background)"
               interval={0}
             />
             <YAxis
               width={yAxisWidth}
               allowDecimals={false}
-              tick={{ fontFamily: "var(--font-merriweather-sans)" }}
+              tick={{
+                fontFamily: "var(--font-merriweather-sans)",
+                fill: "var(--background)",
+              }}
+              stroke="var(--background)"
             />
             <CartesianGrid strokeDasharray="3 3" />
             <Line

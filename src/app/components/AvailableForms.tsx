@@ -17,16 +17,6 @@ function AvailableForms({ forms }: { forms: boolean }) {
   const [possibleForms, setPossibleForms] = useState<number>(0);
   const [possibleEntries, setPossibleEntries] = useState<number>(0);
 
-  const getThemeColor = (variableName: string) => {
-    return getComputedStyle(document.documentElement)
-      .getPropertyValue(variableName)
-      .trim();
-  };
-
-  // Usage:
-  const accentColor = getThemeColor("--accent");
-  const backgroundColor = getThemeColor("--background");
-
   useEffect(() => {
     if (session?.user?.email) {
       fetch(`/api/mongo/user?email=${session.user.email}`, {
@@ -69,8 +59,8 @@ function AvailableForms({ forms }: { forms: boolean }) {
           maxValue={possibleForms}
           strokeWidth={10}
           styles={buildStyles({
-            pathColor: accentColor,
-            trailColor: backgroundColor,
+            pathColor: "var(--accent)",
+            trailColor: "var(--background)",
           })}
         >
           <div className="text-background font-merriweather text-lg font-semibold">
@@ -94,8 +84,8 @@ function AvailableForms({ forms }: { forms: boolean }) {
           maxValue={possibleEntries}
           strokeWidth={10}
           styles={buildStyles({
-            pathColor: accentColor,
-            trailColor: backgroundColor,
+            pathColor: "var(--accent)",
+            trailColor: "var(--background)",
           })}
         >
           <div className="text-background font-merriweather text-lg font-semibold">

@@ -1,6 +1,7 @@
 import DashButton from "@/app/components/DashButton";
 import EntriesGraph from "@/app/components/EntriesGraph";
 import FormAllowances from "@/app/components/FormAllowances";
+import FormsData from "@/app/components/FormsData";
 
 function Page() {
   return (
@@ -19,7 +20,7 @@ function Page() {
           <FormAllowances />
           <EntriesGraph />
         </div>
-        <div className="bg-foreground rounded-lg flex-1"></div>
+        <FormsData />
       </div>
     </div>
   );
