@@ -85,8 +85,6 @@ function NewFormForm() {
           throw new Error(data.error || "Failed to create form");
         }
 
-        const data = await response.json();
-        console.log("Form created:", data);
         finish();
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to create form");

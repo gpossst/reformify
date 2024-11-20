@@ -35,7 +35,7 @@ export default function RootLayout({
       <body className={bodyClasses}>
         <DashSidebar />
         <div className="h-full w-full flex flex-4 flex-col items-center pl-2">
-          <div className="flex-1 w-full bg-background rounded-xl shadow-2xl">
+          <div className="flex-1 w-full max-h-full bg-background rounded-xl shadow-2xl">
             {children}
           </div>
         </div>

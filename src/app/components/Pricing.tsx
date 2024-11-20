@@ -65,7 +65,6 @@ function Pricing() {
         }
 
         const userData = await response.json();
-        console.log(userData);
         setUserPlan(userData.plan);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");

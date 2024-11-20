@@ -26,7 +26,6 @@ function AvailableForms({ forms }: { forms: boolean }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setUser(data);
           setPossibleForms(
             data.plan === "small"

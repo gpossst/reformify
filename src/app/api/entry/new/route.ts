@@ -8,8 +8,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "API key is required" }, { status: 400 });
   }
 
-  console.log(apiKey);
-
   try {
     const { entry } = await request.json();
 
