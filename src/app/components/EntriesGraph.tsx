@@ -173,7 +173,12 @@ function EntriesGraph() {
 
   if (loading) {
     return (
-      <div className="flex h-full flex-[2] items-center justify-center bg-foreground rounded-lg p-4">
+      <div className="bg-foreground flex-[2] h-full rounded-lg p-4 flex-col items-center">
+        <div className="flex justify-start items-center">
+          <h3 className="font-fredoka text-xl font-bold text-background">
+            Entries
+          </h3>
+        </div>
         <LoadIcon color="accent" size={20} />
       </div>
     );

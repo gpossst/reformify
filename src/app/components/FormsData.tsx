@@ -42,7 +42,12 @@ function FormsData() {
 
   if (loading) {
     return (
-      <div className="bg-foreground rounded-lg flex-1">
+      <div className="bg-foreground h-full rounded-lg flex-1 p-4 flex-col items-center">
+        <div className="flex justify-start items-center">
+          <h3 className="font-fredoka text-xl font-bold text-background">
+            All Forms
+          </h3>
+        </div>
         <LoadIcon color="accent" size={20} />
       </div>
     );
