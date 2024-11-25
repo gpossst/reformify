@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import LoadIcon from "./LoadIcon";
 import { useSession } from "next-auth/react";
 import { Form } from "../types/form";
-import DashButton from "./DashButton";
+
 function FormsData() {
+  const router = useRouter();
   const { data: session } = useSession();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -40,6 +42,10 @@ function FormsData() {
     fetchForms();
   }, [session?.user?.email]);
 
+  const handleRowClick = (formId: string) => {
+    router.push(`/dashboard/forms/form/${formId}`);
+  };
+
   if (loading) {
     return (
       <div className="bg-foreground h-full rounded-lg flex-1 p-4 flex-col items-center">
@@ -52,6 +58,13 @@ function FormsData() {
       </div>
     );
   }
+  if (error) {
+    return (
+      <div className="h-full bg-foreground p-4 rounded-lg flex flex-col">
+        <div className="text-center text-background">{error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full bg-foreground p-4 rounded-lg flex flex-col">
@@ -61,67 +74,36 @@ function FormsData() {
         </h3>
       </div>
       <div className="overflow-auto flex-1 min-h-0 mt-4">
-        <table className="min-w-full divide-y divide-foreground">
-          <thead className="bg-foreground sticky top-0">
-            <tr className="text-background font-semibold font-merriweather shadow-lg">
-              <th className="px-6 py-3 text-left text-sm text-background/70">
-                Title
-              </th>
-              <th className="px-6 py-3 text-left text-sm text-background/70">
-                Description
-              </th>
-              <th className="px-6 py-3 text-left text-sm text-background/70">
-                Entries
-              </th>
-              <th className="px-6 py-3 text-left text-sm text-background/70">
-                Created
-              </th>
-              <th className="px-6 py-3 text-left text-sm text-background/70">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y text-background font-merriweather divide-background">
-            {forms.map((form: any) => (
-              <tr key={form._id.toString()} className="hover:bg-background/5">
-                <td className="px-6 py-4 text-sm text-background">
-                  {form.title}
-                </td>
-                <td className="px-6 py-4 text-sm text-background">
-                  {form.description}
-                </td>
-                <td className="px-6 py-4 text-sm text-background">
-                  {form.entries?.length || 0}
-                </td>
-                <td className="px-6 py-4 text-sm text-background">
-                  {new Date(form.createdAt).toLocaleDateString()}
-                </td>
-                <td className="px-6 py-4 text-sm flex gap-2">
-                  <DashButton
-                    link={`/dashboard/forms/${form._id.toString()}/edit`}
-                    text="Edit"
-                    color="background"
-                  />
-                  <DashButton
-                    link={`/dashboard/forms/${form._id.toString()}`}
-                    text="View"
-                    color="background"
-                  />
-                </td>
-              </tr>
-            ))}
-            {forms.length === 0 && (
-              <tr>
-                <td
-                  colSpan={5}
-                  className="px-6 py-4 text-center text-background"
-                >
-                  No forms found
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <div className="flex flex-col gap-2">
+          {forms.map((form: Form) => (
+            <div
+              key={form._id.toString()}
+              onClick={() => handleRowClick(form._id.toString())}
+              className="p-4 bg-background rounded-lg w-full cursor-pointer flex justify-between items-center font-merriweather text-sm"
+            >
+              <div className="flex w-1/3 justify-between items-center">
+                <div className="font-bold text-base">{form.title}</div>
+                <div>
+                  {form.entryCount ? (
+                    form.entryCount == 1 ? (
+                      <div>{form.entryCount} entry</div>
+                    ) : (
+                      <div>{form.entryCount} entries</div>
+                    )
+                  ) : (
+                    <div>0 entries</div>
+                  )}
+                </div>
+              </div>
+              <div>{new Date(form.createdAt).toLocaleDateString()}</div>
+            </div>
+          ))}
+          {forms.length === 0 && (
+            <div className="text-center text-background p-4">
+              No forms found
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

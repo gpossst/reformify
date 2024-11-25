@@ -41,6 +41,15 @@ function DashSidebar() {
     router.push(path);
   };
 
+  const isActiveRoute = (path: string) => {
+    if (path === "/dashboard") {
+      // For dashboard home, only match exact path to avoid matching all /dashboard/* routes
+      return pathname === path;
+    }
+    // For other routes, check if the current path starts with the menu item path
+    return pathname.startsWith(path);
+  };
+
   return (
     <div className="bg-background rounded-xl shadow-2xl flex-1">
       <div
@@ -60,7 +69,7 @@ function DashSidebar() {
               onClick={() => handleNavigation(item.path)}
               className={clsx(
                 "cursor-pointer text-foreground text-lg p-2 rounded hover:bg-foreground font-semibold font-merriweather hover:text-background transition-colors flex items-center gap-2",
-                pathname === item.path && "bg-accent"
+                isActiveRoute(item.path) && "bg-accent"
               )}
             >
               {item.icon}
