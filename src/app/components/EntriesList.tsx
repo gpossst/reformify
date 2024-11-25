@@ -15,7 +15,7 @@ function EntriesList({ entries }: { entries: Entry[] }) {
     <div className="h-full bg-foreground p-4 rounded-lg flex flex-col">
       <div className="flex justify-start items-center">
         <h3 className="font-fredoka text-xl font-bold text-background">
-          All Forms
+          All Entries
         </h3>
       </div>
       <div className="overflow-auto flex-1 min-h-0 mt-4">
@@ -31,7 +31,7 @@ function EntriesList({ entries }: { entries: Entry[] }) {
             </div>
           ))}
           {entries.length === 0 && (
-            <div className="text-center text-background p-4">
+            <div className="text-center font-merriweather text-background p-4">
               No forms found
             </div>
           )}
