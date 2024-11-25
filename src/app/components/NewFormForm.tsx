@@ -112,7 +112,7 @@ function NewFormForm() {
 
   return (
     <div className="flex flex-col gap-4 w-full max-w-md mx-auto p-4 h-full">
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 font-merriweather">
         <input
           type="text"
           placeholder="Form Title"

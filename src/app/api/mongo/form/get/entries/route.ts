@@ -30,7 +30,6 @@ export async function GET(request: NextRequest) {
     // Close connection
     await client.close();
 
-    console.log(entries);
     return NextResponse.json(entries);
   } catch (error) {
     console.error("Database error:", error);

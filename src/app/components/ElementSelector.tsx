@@ -45,7 +45,7 @@ function ElementSelector({
     <div className="flex flex-col gap-4 w-full max-w-2xl mx-auto">
       <button
         onClick={newElement}
-        className="bg-foreground text-background p-2 rounded-md hover:bg-foreground/90 transition-colors sticky bottom-0"
+        className="bg-foreground font-merriweather text-background p-2 rounded-md hover:bg-foreground/90 transition-colors sticky bottom-0"
       >
         Add Element
       </button>

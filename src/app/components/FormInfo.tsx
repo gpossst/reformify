@@ -44,6 +44,11 @@ function FormInfo({ formId }: FormInfoProps) {
   if (loading) {
     return (
       <div className="h-full flex-1 bg-foreground p-4 rounded-lg flex flex-col items-center justify-center">
+        <div className="flex justify-start items-center self-start">
+          <h3 className="font-fredoka text-xl font-bold text-background">
+            Form Details
+          </h3>
+        </div>
         <LoadIcon color="accent" size={20} />
       </div>
     );
@@ -52,6 +57,11 @@ function FormInfo({ formId }: FormInfoProps) {
   if (error) {
     return (
       <div className="h-full bg-foreground p-4 rounded-lg flex flex-col">
+        <div className="flex justify-start items-center">
+          <h3 className="font-fredoka text-xl font-bold text-background">
+            Form Details
+          </h3>
+        </div>
         <div className="text-center text-background">{error}</div>
       </div>
     );
