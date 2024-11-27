@@ -3,8 +3,15 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Entry } from "../types/entry";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
-function EntriesList({ entries }: { entries: Entry[] }) {
+function EntriesList({
+  formId,
+  entries,
+}: {
+  formId: string;
+  entries: Entry[];
+}) {
   const router = useRouter();
 
   const handleRowClick = (entryId: string) => {
@@ -13,13 +20,22 @@ function EntriesList({ entries }: { entries: Entry[] }) {
 
   return (
     <div className="h-full bg-foreground p-4 rounded-lg flex flex-col">
-      <div className="flex justify-start items-center">
+      <div className="flex justify-between items-center">
         <h3 className="font-fredoka text-xl font-bold text-background">
           All Entries
         </h3>
+        <div>
+          <button
+            className={`flex items-center text-sm gap-1 font-merriweather bg-background text-foreground px-2 py-1 rounded-md`}
+            onClick={() => router.push(`/dashboard/forms/${formId}/export`)}
+          >
+            Export
+            <MdKeyboardDoubleArrowRight size={16} />
+          </button>
+        </div>
       </div>
       <div className="overflow-auto flex-1 min-h-0 mt-4">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 rounded-lg">
           {entries.map((entry: Entry) => (
             <div
               key={entry._id.toString()}

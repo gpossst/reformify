@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import FormRequest from "./FormRequest";
 import { FaPencil } from "react-icons/fa6";
 import { Form } from "../types/form";
+import { FormElement } from "../types/formElement";
 
 interface FormPageContentProps {
   formId: string;
@@ -113,11 +114,22 @@ function FormPageContent({ formId }: FormPageContentProps) {
         </div>
         <div className="flex-[1.5] flex min-h-0 gap-4">
           <div className="flex-1">
-            <EntriesList entries={entries} />
+            <EntriesList formId={formId} entries={entries} />
           </div>
           <div className="flex-1 bg-foreground rounded-lg h-full max-h-full">
-            {/* @ts-expect-error FormElement exists but isn't working here */}
-            <FormRequest elements={form?.elements || []} />
+            {form && (
+              <FormRequest
+                elements={(form.elements as FormElement[]) || []}
+                emailSettings={
+                  form.emailSettings || {
+                    requireEmail: false,
+                    notifyOnEntry: false,
+                    sendConfirmation: false,
+                    confirmationEmail: "",
+                  }
+                }
+              />
+            )}
           </div>
         </div>
       </div>

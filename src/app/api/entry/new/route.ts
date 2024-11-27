@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     const user = await db
       .collection("users")
-      .findOneAndUpdate({ email: form.email }, { $inc: { entryCount: 1 } });
+      .findOneAndUpdate({ email: form.userEmail }, { $inc: { entryCount: 1 } });
 
     await db.collection("entries").insertOne({
       formId: form._id,

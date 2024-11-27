@@ -4,8 +4,8 @@ import React from "react";
 
 function page() {
   return (
-    <div>
-      <div className="flex justify-between items-center px-4 pt-4">
+    <div className="flex flex-col h-full p-4 gap-4">
+      <div className="flex justify-between items-center">
         <div className="flex-1 flex justify-start">
           <BackButton />
         </div>
@@ -16,7 +16,9 @@ function page() {
           A form to create a form 😉
         </div>
       </div>
-      <NewFormForm />
+      <div className="flex flex-col flex-1 items-center justify-center text-background rounded-lg p-4 overflow-hidden">
+        <NewFormForm />
+      </div>
     </div>
   );
 }

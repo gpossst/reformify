@@ -16,7 +16,15 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { title, description, elements } = await request.json();
+    const {
+      title,
+      description,
+      elements,
+      requireEmail,
+      confirmationEmail,
+      notifyOnEntry,
+      sendConfirmation,
+    } = await request.json();
 
     const client = await MongoClient.connect(process.env.MONGODB_URI!);
     const db = client.db("db1");
@@ -52,13 +60,18 @@ export async function POST(request: NextRequest) {
 
     const form = await forms.insertOne({
       _id: formId,
-      email,
+      userEmail: email,
       apiKey,
       createdAt: new Date(),
+      emailSettings: {
+        requireEmail,
+        confirmationEmail,
+        notifyOnEntry,
+        sendConfirmation,
+      },
       title,
       description,
       elements,
-      entries: [],
     });
 
     await db

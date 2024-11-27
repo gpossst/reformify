@@ -1,30 +1,60 @@
+"use client";
+
 import React, { useState } from "react";
 import { FormElement } from "../types/formElement";
 import { FaRegCopy } from "react-icons/fa6";
 import DashButton from "./DashButton";
+import { Form } from "../types/form";
 
-function FormRequest({ elements }: { elements: FormElement[] }) {
+// Create a client-side only wrapper
+function ClientFormRequest({
+  elements,
+  emailSettings,
+}: {
+  elements: FormElement[];
+  emailSettings: Form["emailSettings"];
+}) {
+  return (
+    <div className="h-full">
+      <FormRequest elements={elements} emailSettings={emailSettings} />
+    </div>
+  );
+}
+
+// Main component becomes an internal component
+function FormRequest({
+  elements,
+  emailSettings,
+}: {
+  elements: FormElement[];
+  emailSettings: Form["emailSettings"];
+}) {
   const [selectedLanguage, setSelectedLanguage] = useState("curl");
   const [copied, setCopied] = useState(false);
 
   const getCodeExample = () => {
-    const payload = elements.reduce((acc, element) => {
-      acc[element.name] = `<${element.type} value>`;
-      return acc;
-    }, {} as Record<string, string>);
+    const payload = {
+      entry: {
+        ...(emailSettings.requireEmail && { email: "<email>" }),
+        ...elements.reduce((acc, element) => {
+          acc[element.name] = `<${element.type} value>`;
+          return acc;
+        }, {} as Record<string, string>),
+      },
+    };
 
     const examples = {
       curl: `curl -X POST \\
   http://localhost:3000/api/entry/new \\
   -H 'Content-Type: application/json' \\
-  -H 'x-api-key: YOUR_API_KEY' \\
+  -H 'Authorization: YOUR_API_KEY' \\
   -d '${JSON.stringify(payload, null, 2)}'`,
 
       javascript: `fetch('http://localhost:3000/api/entry/new', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': 'YOUR_API_KEY'
+    'Authorization': 'YOUR_API_KEY'
   },
   body: JSON.stringify(${JSON.stringify(payload, null, 2)})
 })`,
@@ -38,7 +68,7 @@ response = requests.post(
     json=payload,
     headers={
         'Content-Type': 'application/json',
-        'x-api-key': 'YOUR_API_KEY'
+        'Authorization': 'YOUR_API_KEY'
     }
 )`,
     };
@@ -87,4 +117,4 @@ response = requests.post(
   );
 }
 
-export default FormRequest;
+export default ClientFormRequest;

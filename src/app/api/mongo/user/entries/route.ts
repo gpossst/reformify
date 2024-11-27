@@ -21,8 +21,11 @@ export async function GET(request: NextRequest) {
     const client = await MongoClient.connect(process.env.MONGODB_URI!);
     const db = client.db("db1");
 
-    // Find entries
-    const entries = await db.collection("entries").find({ email }).toArray();
+    // Find all entries with matching email
+    const entries = await db
+      .collection("entries")
+      .find({ email: email })
+      .toArray();
 
     // Close connection
     await client.close();

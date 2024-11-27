@@ -42,14 +42,8 @@ function ElementSelector({
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full max-w-2xl mx-auto">
-      <button
-        onClick={newElement}
-        className="bg-foreground font-merriweather text-background p-2 rounded-md hover:bg-foreground/90 transition-colors sticky bottom-0"
-      >
-        Add Element
-      </button>
-      <div className="flex flex-col gap-4 h-[45vh] overflow-y-auto rounded-md">
+    <div className="flex flex-col gap-4 w-full max-w-2xl mx-auto h-full">
+      <div className="flex flex-col gap-4 flex-1 overflow-y-auto rounded-md">
         {elements.map((element, index) => (
           <div
             className="flex items-center justify-between gap-4 bg-foreground p-4 rounded-md text-background font-merriweather"
@@ -61,7 +55,7 @@ function ElementSelector({
               <div className="flex items-center gap-2">
                 <label htmlFor={`name-${index}`}>Name</label>
                 <input
-                  className="flex-1 border border-background bg-foreground text-background p-1 rounded-md"
+                  className="flex-1 border-b-2 border-background bg-foreground text-background p-1"
                   id={`name-${index}`}
                   type="text"
                   value={element.name}
@@ -77,7 +71,7 @@ function ElementSelector({
                 <div className="flex items-center gap-2">
                   <label htmlFor={`type-${index}`}>Type</label>
                   <select
-                    className="border border-background bg-foreground text-background p-1 rounded-md"
+                    className="border-none bg-background text-foreground px-2 py-1 rounded-md"
                     id={`type-${index}`}
                     value={element.type}
                     onChange={(e) =>
@@ -113,13 +107,19 @@ function ElementSelector({
             </div>
             <button
               onClick={() => removeElement(index)}
-              className="text-background/80 hover:text-background transition-colors self-center"
+              className="text-background/80 hover:text-accent transition-colors self-center"
             >
               <MdOutlineDelete size={24} />
             </button>
           </div>
         ))}
       </div>
+      <button
+        onClick={newElement}
+        className="bg-foreground font-merriweather text-background p-2 rounded-md transition-colors mt-auto"
+      >
+        Add Element
+      </button>
     </div>
   );
 }

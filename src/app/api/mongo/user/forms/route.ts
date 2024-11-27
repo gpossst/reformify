@@ -22,7 +22,10 @@ export async function GET(request: NextRequest) {
     const db = client.db("db1");
 
     // Find forms
-    const forms = await db.collection("forms").find({ email }).toArray();
+    const forms = await db
+      .collection("forms")
+      .find({ userEmail: email })
+      .toArray();
 
     // Close connection
     await client.close();
