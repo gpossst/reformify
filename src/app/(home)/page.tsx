@@ -16,7 +16,7 @@ export default function Home() {
         }}
       >
         <div className="text-8xl font-fredoka font-bold text-center px-12 leading-none tracking-tight relative z-10">
-          Fixing the form creation and monitoring process
+          Make forms easy.
         </div>
         <div className="flex items-center justify-center gap-8 relative z-10">
           <DocumentationButton />

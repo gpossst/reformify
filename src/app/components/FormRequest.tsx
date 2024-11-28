@@ -47,14 +47,14 @@ function FormRequest({
       curl: `curl -X POST \\
   http://localhost:3000/api/entry/new \\
   -H 'Content-Type: application/json' \\
-  -H 'Authorization: YOUR_API_KEY' \\
+  -H 'Authorization: FORM_API_KEY' \\
   -d '${JSON.stringify(payload, null, 2)}'`,
 
       javascript: `fetch('http://localhost:3000/api/entry/new', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'YOUR_API_KEY'
+    'Authorization': 'FORM_API_KEY'
   },
   body: JSON.stringify(${JSON.stringify(payload, null, 2)})
 })`,
@@ -68,7 +68,7 @@ response = requests.post(
     json=payload,
     headers={
         'Content-Type': 'application/json',
-        'Authorization': 'YOUR_API_KEY'
+        'Authorization': 'FORM_API_KEY'
     }
 )`,
     };

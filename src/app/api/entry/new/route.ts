@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
     const client = await MongoClient.connect(process.env.MONGODB_URI!);
     const db = client.db("db1");
 
+    console.log("API Key:", apiKey);
     const form = await db.collection("forms").findOne({ apiKey });
 
     if (!form) {
