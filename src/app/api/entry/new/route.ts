@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
 
     await db.collection("entries").insertOne({
       formId: form._id,
+      formName: form.title,
       email: user?.email,
       entry,
       date: new Date(),

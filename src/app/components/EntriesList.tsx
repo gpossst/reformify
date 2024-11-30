@@ -15,8 +15,12 @@ function EntriesList({
   const router = useRouter();
 
   const handleRowClick = (entryId: string) => {
-    router.push(`/dashboard/entries/${entryId}}`);
+    router.push(`/dashboard/forms/${entryId}`);
   };
+
+  const sortedEntries = [...entries].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   return (
     <div className="h-full bg-foreground p-4 rounded-lg flex flex-col">
@@ -36,7 +40,7 @@ function EntriesList({
       </div>
       <div className="overflow-auto flex-1 min-h-0 mt-4">
         <div className="flex flex-col gap-2 rounded-lg">
-          {entries.map((entry: Entry) => (
+          {sortedEntries.map((entry: Entry) => (
             <div
               key={entry._id.toString()}
               onClick={() => handleRowClick(entry._id.toString())}

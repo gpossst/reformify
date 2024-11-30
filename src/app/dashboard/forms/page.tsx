@@ -16,7 +16,7 @@ function Page() {
         </div>
       </div>
       <div className="flex flex-col flex-1 p-4 gap-4 overflow-auto">
-        <div className="flex gap-4 flex-shrink-0">
+        <div className="flex flex-1 gap-4 flex-shrink-0">
           <FormAllowances />
           <EntriesGraph />
         </div>

@@ -48,6 +48,7 @@ function EntriesGraph() {
         }
 
         const entryData: Entry[] = await response.json();
+        console.log(entryData);
 
         // Group by day
         const entriesByDay = entryData.reduce<{ [key: string]: number }>(
