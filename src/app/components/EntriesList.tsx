@@ -52,7 +52,7 @@ function EntriesList({
           ))}
           {entries.length === 0 && (
             <div className="text-center font-merriweather text-background p-4">
-              No forms found
+              No entries found
             </div>
           )}
         </div>

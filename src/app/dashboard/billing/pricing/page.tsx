@@ -8,10 +8,12 @@ function page() {
       <div className="flex items-center relative pb-4">
         <BackButton />
         <div className="text-foreground font-fredoka text-xl font-bold absolute left-1/2 -translate-x-1/2">
-          Plans
+          Pricing
         </div>
       </div>
-      <Pricing />
+      <div className="flex justify-center h-full">
+        <Pricing />
+      </div>
     </div>
   );
 }

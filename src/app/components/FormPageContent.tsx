@@ -10,7 +10,7 @@ import LoadIcon from "./LoadIcon";
 import EntriesList from "./EntriesList";
 import { useRouter } from "next/navigation";
 import FormRequest from "./FormRequest";
-import { FaPencil } from "react-icons/fa6";
+import { FaPencil, FaTrash } from "react-icons/fa6";
 import { Form } from "../types/form";
 import { FormElement } from "../types/formElement";
 
@@ -25,6 +25,7 @@ function FormPageContent({ formId }: FormPageContentProps) {
   const [form, setForm] = useState<Form | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,6 +76,30 @@ function FormPageContent({ formId }: FormPageContentProps) {
     fetchData();
   }, [formId, session?.user?.email]);
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`/api/mongo/form/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-secret": process.env.NEXT_PUBLIC_API_SECRET!,
+        },
+        body: JSON.stringify({ formId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete form");
+      }
+
+      router.push("/dashboard/forms");
+    } catch (error) {
+      console.error("Error deleting form:", error);
+      setError("Failed to delete form. Please try again.");
+    } finally {
+      setShowConfirm(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex flex-col h-screen p-4 w-full items-center justify-center">
@@ -93,15 +118,48 @@ function FormPageContent({ formId }: FormPageContentProps) {
 
   return (
     <div className="flex flex-col h-full w-full">
+      {showConfirm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-background p-6 rounded-lg flex flex-col gap-4">
+            <p className="font-merriweather text-foreground">
+              Are you sure you want to delete this form? This action cannot be
+              undone.
+            </p>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowConfirm(false)}
+                className="font-merriweather bg-foreground text-background px-4 py-2 rounded-md hover:opacity-90 transition-opacity"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                className="font-merriweather bg-accent text-background px-4 py-2 rounded-md hover:opacity-90 transition-opacity"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="flex flex-row justify-between items-center p-4">
         <BackButton />
-        <button
-          onClick={() => router.push(`/dashboard/forms/edit/${formId}`)}
-          className="flex items-center justify-center gap-2 font-merriweather bg-foreground text-background px-2 py-1 rounded-md"
-        >
-          <p>Edit</p>
-          <FaPencil size={16} />
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => router.push(`/dashboard/forms/edit/${formId}`)}
+            className="flex items-center justify-center gap-2 font-merriweather bg-foreground text-background px-2 py-1 rounded-md"
+          >
+            <p>Edit</p>
+            <FaPencil size={16} />
+          </button>
+          <button
+            onClick={() => setShowConfirm(true)}
+            className="flex items-center justify-center gap-2 font-merriweather bg-accent text-background px-2 py-1 rounded-md hover:opacity-90 transition-opacity"
+          >
+            <p>Delete</p>
+            <FaTrash size={16} />
+          </button>
+        </div>
       </div>
       <div className="flex flex-1 flex-col gap-4 px-4 pb-4 min-h-0">
         <div className="flex flex-1 gap-4 w-full min-h-0">

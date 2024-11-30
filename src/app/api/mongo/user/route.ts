@@ -22,7 +22,15 @@ export async function GET(request: NextRequest) {
     const db = client.db("db1");
 
     // Find user
-    const user = await db.collection("users").findOne({ email });
+    let user = await db.collection("users").findOne({ email });
+
+    // If user exists but has no allowance, set default allowance
+    if (user && !user.allowance) {
+      await db
+        .collection("users")
+        .updateOne({ email }, { $set: { allowance: 50 } });
+      user = await db.collection("users").findOne({ email });
+    }
 
     // Close connection
     await client.close();

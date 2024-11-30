@@ -11,7 +11,7 @@ function QuickLinks() {
       </h3>
       <div className="grid grid-cols-2 gap-4">
         <Link
-          href="/dashboard/forms/new"
+          href="/dashboard/forms/create"
           className="flex items-center justify-center p-4 bg-accent text-foreground rounded-lg font-merriweather hover:opacity-90 transition-opacity"
         >
           New Form

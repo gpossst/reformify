@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Fredoka, Merriweather_Sans } from "next/font/google";
 import "@/app/globals.css";
 import DashSidebar from "../components/DashSidebar";
+import AuthCheck from "../components/AuthCheck";
 
 const fredoka = Fredoka({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
         <div className="h-full w-full flex flex-4 flex-col items-center pl-2">
           <div className="flex-1 w-full max-h-full bg-background rounded-xl shadow-2xl">
             {children}
+            <AuthCheck />
           </div>
         </div>
       </body>

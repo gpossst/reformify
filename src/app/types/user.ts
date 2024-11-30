@@ -5,11 +5,11 @@ export interface User {
   email: string;
   name?: string;
   image?: string;
-  plan: "small" | "medium" | "large" | "enterprise";
   customerId?: string;
   priceId?: string;
   formCount: number;
   entryCount: number;
   forms: ObjectId[];
   createdAt: Date;
+  allowance: number;
 }
