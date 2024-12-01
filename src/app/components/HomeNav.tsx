@@ -15,13 +15,13 @@ function HomeNav() {
         </div>
         <div
           className="cursor-pointer text-lg font-semibold"
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/documentation")}
         >
           Documentation
         </div>
         <div
           className="cursor-pointer text-lg font-semibold"
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/pricing")}
         >
           Pricing
         </div>

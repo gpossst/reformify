@@ -177,6 +177,7 @@ function FormPageContent({ formId }: FormPageContentProps) {
           <div className="flex-1 bg-foreground rounded-lg h-full max-h-full">
             {form && (
               <FormRequest
+                showLearnMore={true}
                 elements={(form.elements as FormElement[]) || []}
                 emailSettings={
                   form.emailSettings || {

@@ -17,7 +17,7 @@ export default function Page({ params }: { params: { entryId: string } }) {
   const [deleting, setDeleting] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // @ts-ignore
+  // @ts-expect-error Params works
   const entryId = React.use(params).entryId;
   const router = useRouter();
 

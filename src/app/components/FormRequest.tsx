@@ -10,13 +10,19 @@ import { Form } from "../types/form";
 function ClientFormRequest({
   elements,
   emailSettings,
+  showLearnMore,
 }: {
   elements: FormElement[];
   emailSettings: Form["emailSettings"];
+  showLearnMore: boolean;
 }) {
   return (
     <div className="h-full">
-      <FormRequest elements={elements} emailSettings={emailSettings} />
+      <FormRequest
+        elements={elements}
+        emailSettings={emailSettings}
+        showLearnMore={showLearnMore}
+      />
     </div>
   );
 }
@@ -25,9 +31,11 @@ function ClientFormRequest({
 function FormRequest({
   elements,
   emailSettings,
+  showLearnMore,
 }: {
   elements: FormElement[];
   emailSettings: Form["emailSettings"];
+  showLearnMore: boolean;
 }) {
   const [selectedLanguage, setSelectedLanguage] = useState("curl");
   const [copied, setCopied] = useState(false);
@@ -88,7 +96,14 @@ response = requests.post(
         <h3 className="font-fredoka text-xl font-bold">API Request Example</h3>
 
         <div className="flex gap-2">
-          <DashButton link="#" text="Learn More" size="sm" color="background" />
+          {showLearnMore && (
+            <DashButton
+              link="#"
+              text="Learn More"
+              size="sm"
+              color="background"
+            />
+          )}
           <select
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}

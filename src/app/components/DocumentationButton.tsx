@@ -9,7 +9,7 @@ function DocumentationButton() {
   return (
     <button
       className="cursor-pointer font-merriweather text-lg flex items-center gap-1 border-2 border-foreground rounded-md px-4 py-2 hover:bg-foreground hover:text-background transition-all duration-300 shadow-2xl"
-      onClick={() => router.push("/docs")}
+      onClick={() => router.push("/documentation")}
     >
       <div className="h-[30px] flex items-center">Documentation</div>
       <MdKeyboardDoubleArrowRight />

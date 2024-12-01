@@ -16,7 +16,7 @@ function page() {
           A form to create a form 😉
         </div>
       </div>
-      <div className="flex flex-col flex-1 items-center justify-center text-background rounded-lg p-4 overflow-hidden">
+      <div className="flex flex-col flex-1 items-center justify-center text-background rounded-lg overflow-hidden">
         <NewFormForm />
       </div>
     </div>
