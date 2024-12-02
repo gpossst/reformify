@@ -18,7 +18,7 @@ function FormAllowances() {
         </div>
       </div>
       <div className="flex gap-4 items-center justify-center h-full">
-        <AvailableForms forms={false} />
+        <AvailableForms />
       </div>
     </div>
   );

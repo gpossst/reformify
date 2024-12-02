@@ -21,7 +21,10 @@ function HomeNav() {
         </div>
         <div
           className="cursor-pointer text-lg font-semibold"
-          onClick={() => router.push("/pricing")}
+          onClick={() => {
+            const pricingSection = document.getElementById("pricing");
+            pricingSection?.scrollIntoView({ behavior: "smooth" });
+          }}
         >
           Pricing
         </div>

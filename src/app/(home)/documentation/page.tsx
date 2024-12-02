@@ -2,11 +2,13 @@ import ApiExampleSelector from "@/app/components/ApiExampleSelector";
 import React from "react";
 import ErrorHandlingExample from "@/app/components/ErrorHandlingExample";
 import TableOfContents from "@/app/components/TableOfContents";
+import ToTopArrow from "@/app/components/ToTopArrow";
 
 function page() {
   return (
     <div className="max-w-7xl mx-auto w-full">
       <div className="flex gap-8 p-4 md:p-8 lg:p-12">
+        <ToTopArrow />
         <TableOfContents />
         <div className="flex-1 flex flex-col gap-8">
           <h1 className="font-fredoka text-4xl pt-12 font-bold text-foreground">

@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "58bd8328c6743a83990ef3fa82828b91",
+        Authorization: "0c71ac8c82c48093d4cef0382309843e",
       },
       body: JSON.stringify(formData),
     });

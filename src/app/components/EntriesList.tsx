@@ -6,10 +6,10 @@ import { Entry } from "../types/entry";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 function EntriesList({
-  formId,
+  formName,
   entries,
 }: {
-  formId: string;
+  formName: string;
   entries: Entry[];
 }) {
   const router = useRouter();
@@ -22,6 +22,24 @@ function EntriesList({
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
+  const exportToCsv = () => {
+    // Convert entries to CSV format
+    const headers = Object.keys(entries[0] || {}).join(",");
+    const rows = entries.map((entry) => Object.values(entry).join(","));
+    const csv = [headers, ...rows].join("\n");
+
+    // Create and trigger download
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${formName}_entries_${new Date().toLocaleDateString()}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="h-full bg-foreground p-4 rounded-lg flex flex-col">
       <div className="flex justify-between items-center">
@@ -31,7 +49,7 @@ function EntriesList({
         <div>
           <button
             className={`flex items-center text-sm gap-1 font-merriweather bg-background text-foreground px-2 py-1 rounded-md`}
-            onClick={() => router.push(`/dashboard/forms/${formId}/export`)}
+            onClick={exportToCsv}
           >
             Export
             <MdKeyboardDoubleArrowRight size={16} />

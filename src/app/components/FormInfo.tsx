@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Form } from "../types/form";
+import ResetApiKey from "./ResetApiKey";
 
 interface FormInfoProps {
   form: Form | null;
@@ -54,18 +55,21 @@ function FormInfo({ form }: FormInfoProps) {
             <p>{form.entryCount || 0}</p>
           </div>
         </div>
-        <div>
+        <div className="flex-col gap-2">
           <h4 className="font-bold">Form API Key</h4>
-          <button
-            onClick={handleApiKeyClick}
-            className="bg-background text-foreground px-2 py-1 rounded-md text-sm hover:bg-accent hover:text-background transition-colors"
-          >
-            {copied
-              ? "Copied to clipboard!"
-              : showApiKey
-              ? form.apiKey
-              : "Click to reveal"}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleApiKeyClick}
+              className="bg-background text-foreground px-2 py-1 rounded-md text-sm hover:bg-accent hover:text-background transition-colors"
+            >
+              {copied
+                ? "Copied to clipboard!"
+                : showApiKey
+                ? form.apiKey
+                : "Click to reveal"}
+            </button>
+            <ResetApiKey formId={form._id.toString()} />
+          </div>
         </div>
         <div>
           <h4 className="font-bold">Description</h4>

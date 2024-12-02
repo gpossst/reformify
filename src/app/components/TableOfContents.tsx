@@ -74,14 +74,6 @@ export default function TableOfContents() {
             </ul>
           )}
         </li>
-        <li>
-          <a
-            href="#top"
-            className="text-muted-foreground hover:text-foreground transition-colors font-medium"
-          >
-            Back to top
-          </a>
-        </li>
       </ul>
     </nav>
   );

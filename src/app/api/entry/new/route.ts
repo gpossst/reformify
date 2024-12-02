@@ -4,6 +4,7 @@ import {
   inappropriateWords,
   dangerousPatterns,
 } from "@/app/lib/content-filtering";
+import sgMail from "@sendgrid/mail";
 
 function containsInappropriateContent(value: string): boolean {
   // Convert to lowercase for case-insensitive matching
@@ -280,9 +281,17 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    await db
+    const user = await db
       .collection("users")
       .findOneAndUpdate({ email: form.userEmail }, { $inc: { entryCount: 1 } });
+
+    if (!user || user.allowance <= user.entryCount) {
+      await client.close();
+      return NextResponse.json(
+        { error: "Entry limit exceeded for this account" },
+        { status: 403 }
+      );
+    }
 
     const newEntry = await db.collection("entries").insertOne({
       formId: form._id,
@@ -297,6 +306,102 @@ export async function POST(request: NextRequest) {
       .updateOne({ _id: form._id }, { $inc: { entryCount: 1 } });
 
     await client.close();
+
+    const confirmationMsg = {
+      to: entry.email,
+      from: {
+        email: "noreply@reformify.dev",
+        name: form.title,
+      },
+      subject: `Form Submission Confirmation - ${form.title}`,
+      html:
+        form.emailSettings.confirmationEmail != ""
+          ? `
+          <p>${form.emailSettings.confirmationEmail}</p>
+          <br>
+          <p>This is an automated message, please do not reply.</p>
+          <p>Form services provided by <a href="https://reformify.dev">Reformify</a></p>`
+          : `
+        <h2>Thank you for your submission!</h2>
+        <p>We've received your submission for ${form.title}.</p>
+        <p>Your submission ID is: ${newEntry.insertedId}</p>
+        <br>
+        <p>This is an automated message, please do not reply.</p>
+        <p>Form services provided by <a href="https://reformify.dev">Reformify</a></p>
+      `,
+    };
+
+    const adminMsg = {
+      to: form.userEmail,
+      from: {
+        email: "noreply@reformify.dev",
+        name: "Reformify",
+      },
+      subject: `New Form Submission - ${form.title}`,
+      html: `
+        <h2>New Form Submission</h2>
+        <p>A new submission has been made for ${form.title}.</p>
+        <p>Submission ID: ${newEntry.insertedId}</p>
+        ${entry.email ? `<p>Email: ${entry.email}</p>` : ``}
+        <p>Entry: ${JSON.stringify(entry)}</p>
+        <br>
+        <p>This is an automated message, please do not reply.</p>
+        <p>Form services provided by <a href="https://reformify.dev">Reformify</a></p>
+      `,
+    };
+
+    const approachingLimitMsg = {
+      to: form.userEmail,
+      from: {
+        email: "noreply@reformify.dev",
+        name: form.title,
+      },
+      subject: `Form Submission Confirmation - ${form.title}`,
+      html: `
+        <h2>You're approaching your entry limit!</h2>
+        <p>You've submitted ${
+          user.entryCount
+        } entries on Reformify this month.</p>
+        <p>You have ${user.allowance - user.entryCount} entries remaining.</p>
+        <p>You can increase your allowance by upgrading your <a href="https://reformify.dev/dashboard/billing/pricing"> plan</a>.</p>
+        <br>
+        <p>This is an automated message, please do not reply.</p>
+        <p>Form services provided by <a href="https://reformify.dev">Reformify</a></p>
+      `,
+    };
+
+    // Move SendGrid API key setup outside of try-catch blocks
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+
+    // Consolidate email sending into a single try-catch
+    try {
+      const emailPromises = [];
+
+      if (entry.email && form.emailSettings.sendConfirmation) {
+        emailPromises.push(sgMail.send(confirmationMsg));
+      }
+
+      if (form.emailSettings.notifyOnEntry) {
+        emailPromises.push(sgMail.send(adminMsg));
+      }
+
+      if (user.allowance - user.entryCount <= 10) {
+        emailPromises.push(sgMail.send(approachingLimitMsg));
+      }
+
+      if (emailPromises.length > 0) {
+        await Promise.all(emailPromises);
+      }
+    } catch (emailError) {
+      console.error("Failed to send emails:", emailError);
+      return NextResponse.json(
+        {
+          error: "Failed to send emails, but the entry was submitted",
+          emailError,
+        },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       success: true,

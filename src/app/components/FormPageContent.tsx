@@ -163,16 +163,16 @@ function FormPageContent({ formId }: FormPageContentProps) {
       </div>
       <div className="flex flex-1 flex-col gap-4 px-4 pb-4 min-h-0">
         <div className="flex flex-1 gap-4 w-full min-h-0">
-          <div className="flex flex-1 bg-foreground rounded-lg min-h-0">
+          <div className="flex flex-[2] bg-foreground rounded-lg min-h-0">
             <FormInfo form={form} />
           </div>
-          <div className="flex flex-[2] bg-foreground rounded-lg h-full min-h-0">
+          <div className="flex flex-[3] bg-foreground rounded-lg h-full min-h-0">
             <FormEntriesGraph entries={entries} />
           </div>
         </div>
         <div className="flex-[1.5] flex min-h-0 gap-4">
           <div className="flex-1">
-            <EntriesList formId={formId} entries={entries} />
+            <EntriesList formName={form?.title || ""} entries={entries} />
           </div>
           <div className="flex-1 bg-foreground rounded-lg h-full max-h-full">
             {form && (

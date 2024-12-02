@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.7.3",
+    "@sendgrid/mail": "^8.1.4",
     "@tanstack/react-table": "^8.20.5",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "mongodb": "^6.10.0",

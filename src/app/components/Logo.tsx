@@ -1,7 +1,5 @@
 "use client";
 
-// TODO: Could work with color checking system in AvailableForms.tsx (gives console errors, but works)
-
 import React from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -20,9 +18,10 @@ function Logo({ size, clickable }: { size: number; clickable: boolean }) {
     } else {
       setPointer("");
     }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setDarkMode(true);
-    }
+    const backgroundColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--background")
+      .trim();
+    setDarkMode(backgroundColor === "#143642");
   }, [clickable]);
 
   const handleClick = () => {
@@ -32,7 +31,16 @@ function Logo({ size, clickable }: { size: number; clickable: boolean }) {
   };
 
   if (!mounted) {
-    return null;
+    return (
+      <div className={pointer} onClick={handleClick}>
+        <Image
+          src="/reformify_dark.png"
+          alt="Formify Logo Dark"
+          width={Math.floor(size / 1.15)}
+          height={size}
+        />
+      </div>
+    );
   }
 
   return (

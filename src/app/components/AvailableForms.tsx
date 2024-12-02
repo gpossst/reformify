@@ -10,11 +10,10 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-function AvailableForms({ forms }: { forms: boolean }) {
+function AvailableForms() {
   const { data: session } = useSession();
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | null>(null);
-  const [possibleForms, setPossibleForms] = useState<number>(0);
   const [possibleEntries, setPossibleEntries] = useState<number>(0);
 
   useEffect(() => {
@@ -27,80 +26,36 @@ function AvailableForms({ forms }: { forms: boolean }) {
         .then((res) => res.json())
         .then((data) => {
           setUser(data);
-          setPossibleForms(
-            data.plan === "small"
-              ? 3
-              : data.plan === "medium"
-              ? 10
-              : data.plan === "large"
-              ? 50
-              : Infinity
-          );
-          setPossibleEntries(
-            data.plan === "small"
-              ? 50
-              : data.plan === "medium"
-              ? 500
-              : data.plan === "large"
-              ? 2500
-              : Infinity
-          );
           setLoading(false);
         });
     }
-  }, [session]);
+    setPossibleEntries(user?.allowance ?? 0);
+  }, [session, user?.allowance]);
 
-  if (forms) {
-    return (
-      <div className=" flex flex-col items-center justify-center">
-        <CircularProgressbarWithChildren
-          value={user?.formCount ?? 0}
-          maxValue={possibleForms}
-          strokeWidth={10}
-          styles={buildStyles({
-            pathColor: "var(--accent)",
-            trailColor: "var(--background)",
-          })}
-        >
-          <div className="text-background font-merriweather text-lg font-semibold">
-            {loading ? (
-              <LoadIcon color="accent" size={10} />
-            ) : (
-              `${user?.formCount ?? 0} / ${possibleForms}`
-            )}
-          </div>
-        </CircularProgressbarWithChildren>
+  return (
+    <div className=" flex flex-col items-center justify-center">
+      <CircularProgressbarWithChildren
+        value={user?.entryCount ?? 0}
+        maxValue={possibleEntries}
+        strokeWidth={10}
+        styles={buildStyles({
+          pathColor: "var(--accent)",
+          trailColor: "var(--background)",
+        })}
+      >
         <div className="text-background font-merriweather text-lg font-semibold">
-          Forms
+          {loading ? (
+            <LoadIcon color="accent" size={10} />
+          ) : (
+            `${user?.entryCount ?? 0} / ${possibleEntries}`
+          )}
         </div>
+      </CircularProgressbarWithChildren>
+      <div className="text-background font-merriweather text-lg font-semibold">
+        Entries
       </div>
-    );
-  } else {
-    return (
-      <div className=" flex flex-col items-center justify-center">
-        <CircularProgressbarWithChildren
-          value={user?.entryCount ?? 0}
-          maxValue={possibleEntries}
-          strokeWidth={10}
-          styles={buildStyles({
-            pathColor: "var(--accent)",
-            trailColor: "var(--background)",
-          })}
-        >
-          <div className="text-background font-merriweather text-lg font-semibold">
-            {loading ? (
-              <LoadIcon color="accent" size={10} />
-            ) : (
-              `${user?.entryCount ?? 0} / ${possibleEntries}`
-            )}
-          </div>
-        </CircularProgressbarWithChildren>
-        <div className="text-background font-merriweather text-lg font-semibold">
-          Entries
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default AvailableForms;
