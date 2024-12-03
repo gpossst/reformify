@@ -3,12 +3,12 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import GitHubSignIn from "./GitHubSignIn";
-import Logo from "./Logo";
+import Logo from "../Other/Logo";
 
 function HomeNav() {
   const router = useRouter();
   return (
-    <div className="flex text-foreground justify-between items-center p-4 font-merriweather-sans absolute top-0 w-full">
+    <div className="flex text-foreground justify-between items-center p-4 font-merriweather-sans absolute top-0 w-full z-50">
       <div className="flex gap-4 items-center">
         <div className="">
           <Logo size={50} clickable={true} />

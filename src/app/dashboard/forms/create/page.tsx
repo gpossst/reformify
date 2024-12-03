@@ -1,5 +1,5 @@
-import BackButton from "@/app/components/BackButton";
-import NewFormForm from "@/app/components/NewFormForm";
+import BackButton from "@/app/components/Dashboard/BackButton";
+import NewFormForm from "@/app/components/Dashboard/NewFormForm";
 import React from "react";
 
 function page() {

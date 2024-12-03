@@ -2,8 +2,8 @@
 
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import { Entry } from "../types/entry";
-import LoadIcon from "./LoadIcon";
+import { Entry } from "../../types/entry";
+import LoadIcon from "../Other/LoadIcon";
 import {
   LineChart,
   Line,

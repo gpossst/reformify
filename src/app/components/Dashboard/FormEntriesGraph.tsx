@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Entry } from "../types/entry";
+import { Entry } from "../../types/entry";
 import {
   LineChart,
   Line,

@@ -2,10 +2,10 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { Form } from "../types/form";
-import LoadIcon from "./LoadIcon";
-import FormRequest from "./FormRequest";
-import { FormElement } from "../types/formElement";
+import { Form } from "../../types/form";
+import LoadIcon from "../Other/LoadIcon";
+import FormRequest from "../Dashboard/FormRequest";
+import { FormElement } from "../../types/formElement";
 
 export default function ApiExampleSelector() {
   const { data: session } = useSession();

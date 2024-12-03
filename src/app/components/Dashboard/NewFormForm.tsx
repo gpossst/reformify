@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import ElementSelector from "./ElementSelector";
 import { useSession } from "next-auth/react";
-import LoadIcon from "./LoadIcon";
+import LoadIcon from "../Other/LoadIcon";
 import { FaCheck } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 

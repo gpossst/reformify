@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { FormElement } from "../types/formElement";
+import { FormElement } from "../../types/formElement";
 import { FaRegCopy } from "react-icons/fa6";
 import DashButton from "./DashButton";
-import { Form } from "../types/form";
+import { Form } from "../../types/form";
 
 // Create a client-side only wrapper
 function ClientFormRequest({

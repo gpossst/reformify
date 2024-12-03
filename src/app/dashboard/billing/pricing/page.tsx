@@ -1,5 +1,5 @@
-import BackButton from "@/app/components/BackButton";
-import Pricing from "@/app/components/Pricing";
+import BackButton from "@/app/components/Dashboard/BackButton";
+import Pricing from "@/app/components/Dashboard/Pricing";
 import React from "react";
 
 function page() {

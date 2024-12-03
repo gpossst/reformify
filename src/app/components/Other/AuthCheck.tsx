@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import LoadIcon from "./LoadIcon";
+import LoadIcon from "@/app/components/Other/LoadIcon";
 
 export default function AuthCheck() {
   const { data: session, status } = useSession();

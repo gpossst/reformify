@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Form } from "@/app/types/form";
 import { Entry } from "@/app/types/entry";
-import BackButton from "@/app/components/BackButton";
-import LoadIcon from "@/app/components/LoadIcon";
+import BackButton from "@/app/components/Dashboard/BackButton";
+import LoadIcon from "@/app/components/Other/LoadIcon";
 import { FaTrash } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 

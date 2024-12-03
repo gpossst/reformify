@@ -1,4 +1,4 @@
-import FormPageContent from "@/app/components/FormPageContent";
+import FormPageContent from "@/app/components/Dashboard/FormPageContent";
 import React from "react";
 
 function Page({ params }: { params: { formId: string } }) {

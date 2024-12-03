@@ -1,7 +1,7 @@
-import DashButton from "@/app/components/DashButton";
-import EntriesGraph from "@/app/components/EntriesGraph";
-import FormAllowances from "@/app/components/FormAllowances";
-import FormsData from "@/app/components/FormsData";
+import DashButton from "@/app/components/Dashboard/DashButton";
+import EntriesGraph from "@/app/components/Dashboard/EntriesGraph";
+import FormAllowances from "@/app/components/Dashboard/FormAllowances";
+import FormsData from "@/app/components/Dashboard/FormsData";
 
 function Page() {
   return (

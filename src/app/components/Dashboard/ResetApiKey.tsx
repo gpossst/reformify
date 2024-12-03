@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import LoadIcon from "./LoadIcon";
+import LoadIcon from "../Other/LoadIcon";
 
 interface ResetApiKeyProps {
   formId: string;

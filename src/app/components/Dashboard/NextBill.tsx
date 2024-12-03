@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import LoadIcon from "./LoadIcon";
+import LoadIcon from "../Other/LoadIcon";
 
 export default function NextBill() {
   const { data: session } = useSession();

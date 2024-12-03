@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import LoadIcon from "./LoadIcon";
+import LoadIcon from "../Other/LoadIcon";
 import { useSession } from "next-auth/react";
-import { Form } from "../types/form";
+import { Form } from "../../types/form";
 
 function FormsData() {
   const router = useRouter();

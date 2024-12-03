@@ -2,8 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { Fredoka, Merriweather_Sans } from "next/font/google";
 import "@/app/globals.css";
-import DashSidebar from "../components/DashSidebar";
-import AuthCheck from "../components/AuthCheck";
+import DashSidebar from "../components/Dashboard/DashSidebar";
+import AuthCheck from "../components/Other/AuthCheck";
 
 const fredoka = Fredoka({
   subsets: ["latin"],

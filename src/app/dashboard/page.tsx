@@ -1,8 +1,8 @@
 import React from "react";
-import QuickLinks from "../components/QuickLinks";
-import UserEntries from "../components/UserEntries";
-import About from "../components/About";
-import FormAllowances from "../components/FormAllowances";
+import QuickLinks from "../components/Dashboard/QuickLinks";
+import UserEntries from "../components/Dashboard/UserEntries";
+import About from "../components/Dashboard/About";
+import FormAllowances from "../components/Dashboard/FormAllowances";
 
 function page() {
   return (

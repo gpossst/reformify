@@ -1,8 +1,8 @@
-import BillingHistory from "@/app/components/BillingHistory";
-import DashButton from "@/app/components/DashButton";
-import CancelSubscription from "@/app/components/CancelSubscription";
+import BillingHistory from "@/app/components/Dashboard/BillingHistory";
+import DashButton from "@/app/components/Dashboard/DashButton";
+import CancelSubscription from "@/app/components/Dashboard/CancelSubscription";
 import React from "react";
-import NextBill from "@/app/components/NextBill";
+import NextBill from "@/app/components/Dashboard/NextBill";
 
 function page() {
   return (

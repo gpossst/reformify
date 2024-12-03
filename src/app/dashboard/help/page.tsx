@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import DashButton from "@/app/components/DashButton";
+import DashButton from "@/app/components/Dashboard/DashButton";
 import { useSession } from "next-auth/react";
-import LoadIcon from "@/app/components/LoadIcon";
+import LoadIcon from "@/app/components/Other/LoadIcon";
 import { FaCheck } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 

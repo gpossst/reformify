@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Form } from "@/app/types/form";
-import BackButton from "@/app/components/BackButton";
-import LoadIcon from "@/app/components/LoadIcon";
+import BackButton from "@/app/components/Dashboard/BackButton";
+import LoadIcon from "@/app/components/Other/LoadIcon";
 import { useRouter } from "next/navigation";
-import ElementSelector from "@/app/components/ElementSelector";
+import ElementSelector from "@/app/components/Dashboard/ElementSelector";
 import { FaCheck } from "react-icons/fa6";
 
 export default function EditForm({ params }: { params: { formId: string } }) {

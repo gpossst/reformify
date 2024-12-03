@@ -4,15 +4,15 @@ import React, { useEffect, useState } from "react";
 import BackButton from "./BackButton";
 import FormEntriesGraph from "./FormEntriesGraph";
 import FormInfo from "./FormInfo";
-import { Entry } from "../types/entry";
+import { Entry } from "../../types/entry";
 import { useSession } from "next-auth/react";
-import LoadIcon from "./LoadIcon";
+import LoadIcon from "../Other/LoadIcon";
 import EntriesList from "./EntriesList";
 import { useRouter } from "next/navigation";
 import FormRequest from "./FormRequest";
 import { FaPencil, FaTrash } from "react-icons/fa6";
-import { Form } from "../types/form";
-import { FormElement } from "../types/formElement";
+import { Form } from "../../types/form";
+import { FormElement } from "../../types/formElement";
 
 interface FormPageContentProps {
   formId: string;

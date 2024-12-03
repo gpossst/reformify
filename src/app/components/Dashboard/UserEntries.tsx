@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { Entry } from "../types/entry";
-import LoadIcon from "./LoadIcon";
+import { Entry } from "../../types/entry";
+import LoadIcon from "../Other/LoadIcon";
 
 export default function UserEntries() {
   const { data: session } = useSession();

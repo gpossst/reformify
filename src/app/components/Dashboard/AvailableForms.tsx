@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { User } from "../types/user";
-import LoadIcon from "./LoadIcon";
+import { User } from "../../types/user";
+import LoadIcon from "../Other/LoadIcon";
 import {
   CircularProgressbarWithChildren,
   buildStyles,

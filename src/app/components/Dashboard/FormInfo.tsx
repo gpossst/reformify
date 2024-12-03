@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Form } from "../types/form";
+import { Form } from "../../types/form";
 import ResetApiKey from "./ResetApiKey";
 
 interface FormInfoProps {

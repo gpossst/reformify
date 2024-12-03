@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import LoadIcon from "@/app/components/LoadIcon";
+import LoadIcon from "@/app/components/Other/LoadIcon";
 import { User } from "@/app/types/user";
-import DashButton from "@/app/components/DashButton";
+import DashButton from "@/app/components/Dashboard/DashButton";
 
 function Page() {
   const { data: session } = useSession();

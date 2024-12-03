@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Logo from "./Logo";
+import Logo from "../Other/Logo";
 import { useRouter, usePathname } from "next/navigation";
 import clsx from "clsx";
 import { AiOutlineHome } from "react-icons/ai";

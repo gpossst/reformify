@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Entry } from "../types/entry";
+import { Entry } from "../../types/entry";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 function EntriesList({

@@ -1,8 +1,8 @@
-import ApiExampleSelector from "@/app/components/ApiExampleSelector";
 import React from "react";
-import ErrorHandlingExample from "@/app/components/ErrorHandlingExample";
-import TableOfContents from "@/app/components/TableOfContents";
-import ToTopArrow from "@/app/components/ToTopArrow";
+import ApiExampleSelector from "@/app/components/Home/ApiExampleSelector";
+import ErrorHandlingExample from "@/app/components/Home/ErrorHandlingExample";
+import TableOfContents from "@/app/components/Home/TableOfContents";
+import ToTopArrow from "@/app/components/Home/ToTopArrow";
 
 function page() {
   return (
