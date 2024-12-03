@@ -13,13 +13,16 @@ export default function CancelSubscription() {
 
     try {
       setLoading(true);
-      const response = await fetch(`/api/cancel-subscription?email=${email}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `/api/stripe/cancel-subscription?email=${email}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       if (!response.ok) {
         const error = await response.json();

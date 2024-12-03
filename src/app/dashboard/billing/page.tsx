@@ -2,6 +2,7 @@ import BillingHistory from "@/app/components/BillingHistory";
 import DashButton from "@/app/components/DashButton";
 import CancelSubscription from "@/app/components/CancelSubscription";
 import React from "react";
+import NextBill from "@/app/components/NextBill";
 
 function page() {
   return (
@@ -16,7 +17,8 @@ function page() {
           <DashButton link="/dashboard/billing/pricing" text="Pricing" />
         </div>
       </div>
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 flex flex-col gap-4 min-h-0 px-4 p-4">
+        <NextBill />
         <BillingHistory />
       </div>
     </div>

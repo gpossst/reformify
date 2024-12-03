@@ -283,13 +283,12 @@ function page() {
                       {`{
   "success": true,
   "message": "Entry submitted successfully",
-  "entryId": "<ObjectId>",
-  "timestamp": "<ISO date string>"
+  "entryId": "12345...",
+  "timestamp": "2024-03-14T12:00:00.000Z"
 }`}
                     </td>
                     <td className="py-4 px-6 leading-relaxed">
-                      Submission successful. Returns the entry ID and submission
-                      timestamp.
+                      Successful form submission
                     </td>
                   </tr>
                   <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
@@ -302,7 +301,20 @@ function page() {
 }`}
                     </td>
                     <td className="py-4 px-6 leading-relaxed">
-                      Missing Authorization header or invalid request format.
+                      Missing Authorization header
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
+                    <td className="py-4 px-6 font-mono text-sm bg-red-400/20 rounded mx-2">
+                      400 Bad Request
+                    </td>
+                    <td className="py-4 px-6 font-mono text-sm">
+                      {`{
+  "error": "Invalid entry format"
+}`}
+                    </td>
+                    <td className="py-4 px-6 leading-relaxed">
+                      Request body is malformed or missing entry object
                     </td>
                   </tr>
                   <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
@@ -315,21 +327,85 @@ function page() {
 }`}
                     </td>
                     <td className="py-4 px-6 leading-relaxed">
-                      The provided API key doesn&apos;t match any existing form.
+                      Invalid API key or form doesn&apos;t exist
                     </td>
                   </tr>
                   <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
                     <td className="py-4 px-6 font-mono text-sm bg-red-400/20 rounded mx-2">
-                      422 Unprocessable
+                      422 Unprocessable Entity
                     </td>
                     <td className="py-4 px-6 font-mono text-sm">
                       {`{
-  "error": "Invalid email format"
+  "error": "Field \"fieldname\" is required"
 }`}
                     </td>
                     <td className="py-4 px-6 leading-relaxed">
-                      The submitted value of the email element doesn&apos;t
-                      match the required format.
+                      Missing required field
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
+                    <td className="py-4 px-6 font-mono text-sm bg-red-400/20 rounded mx-2">
+                      422 Unprocessable Entity
+                    </td>
+                    <td className="py-4 px-6 font-mono text-sm">
+                      {`{
+  "error": "Invalid value for field \"fieldname\": error details"
+}`}
+                    </td>
+                    <td className="py-4 px-6 leading-relaxed">
+                      Field validation failed
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
+                    <td className="py-4 px-6 font-mono text-sm bg-red-400/20 rounded mx-2">
+                      422 Unprocessable Entity
+                    </td>
+                    <td className="py-4 px-6 font-mono text-sm">
+                      {`{
+  "error": "Submission contains inappropriate content"
+}`}
+                    </td>
+                    <td className="py-4 px-6 leading-relaxed">
+                      Content filtering detected inappropriate content
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
+                    <td className="py-4 px-6 font-mono text-sm bg-red-400/20 rounded mx-2">
+                      422 Unprocessable Entity
+                    </td>
+                    <td className="py-4 px-6 font-mono text-sm">
+                      {`{
+  "error": "Submission contains potentially harmful content"
+}`}
+                    </td>
+                    <td className="py-4 px-6 leading-relaxed">
+                      Content filtering detected dangerous patterns
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
+                    <td className="py-4 px-6 font-mono text-sm bg-red-400/20 rounded mx-2">
+                      429 Too Many Requests
+                    </td>
+                    <td className="py-4 px-6 font-mono text-sm">
+                      {`{
+  "error": "Please wait at least 1 minute between submissions from the same email"
+}`}
+                    </td>
+                    <td className="py-4 px-6 leading-relaxed">
+                      Rate limit exceeded for email submissions
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-400/20 hover:bg-slate-400/10 transition-colors">
+                    <td className="py-4 px-6 font-mono text-sm bg-red-400/20 rounded mx-2">
+                      403 Forbidden
+                    </td>
+                    <td className="py-4 px-6 font-mono text-sm">
+                      {`{
+  "error": "Entry limit exceeded for this account"
+}`}
+                    </td>
+                    <td className="py-4 px-6 leading-relaxed">
+                      Monthly entry allowance exceeded
                     </td>
                   </tr>
                   <tr className="hover:bg-slate-400/10 transition-colors">
@@ -338,11 +414,11 @@ function page() {
                     </td>
                     <td className="py-4 px-6 font-mono text-sm">
                       {`{
-  "error": "Internal server error"
+  "error": "Failed to submit entry"
 }`}
                     </td>
                     <td className="py-4 px-6 leading-relaxed">
-                      Something went wrong on our end. Please try again later.
+                      Internal server error
                     </td>
                   </tr>
                 </tbody>
@@ -420,6 +496,9 @@ function page() {
           </section>
         </div>
       </div>
+      <footer className="text-center text-sm text-foreground p-4">
+        &copy; {new Date().getFullYear()} Reformify
+      </footer>
     </div>
   );
 }

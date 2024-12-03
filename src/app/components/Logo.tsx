@@ -34,8 +34,8 @@ function Logo({ size, clickable }: { size: number; clickable: boolean }) {
     return (
       <div className={pointer} onClick={handleClick}>
         <Image
-          src="/reformify_dark.png"
-          alt="Formify Logo Dark"
+          src="https://utfs.io/f/STFL4gpOFkcnBJhDzk1RwMS74yxKeDvdaC08VYptEgrbcz6n"
+          alt="Formify Logo Light"
           width={Math.floor(size / 1.15)}
           height={size}
         />
@@ -47,14 +47,14 @@ function Logo({ size, clickable }: { size: number; clickable: boolean }) {
     <div className={pointer} onClick={handleClick}>
       {darkMode ? (
         <Image
-          src="/reformify_dark.png"
+          src="https://utfs.io/f/STFL4gpOFkcntBKcL5dVbQDo8T7RmK6aH09S5z4fXAqCGNPB"
           alt="Formify Logo Dark"
           width={Math.floor(size / 1.15)}
           height={size}
         />
       ) : (
         <Image
-          src="/reformify_light.png"
+          src="https://utfs.io/f/STFL4gpOFkcntBKcL5dVbQDo8T7RmK6aH09S5z4fXAqCGNPB"
           alt="Formify Logo Light"
           width={Math.floor(size / 1.15)}
           height={size}

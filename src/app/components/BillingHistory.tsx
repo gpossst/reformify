@@ -26,7 +26,7 @@ function BillingHistory() {
   }, [session]);
 
   return (
-    <div className="h-full flex flex-col p-4">
+    <div className="h-full flex flex-col">
       <div className="bg-foreground text-background p-4 font-merriweather rounded-xl flex-1 flex flex-col min-h-0">
         {/* Fixed Header */}
         <div className="grid grid-cols-3 gap-4 pb-2">

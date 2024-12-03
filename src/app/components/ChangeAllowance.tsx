@@ -47,8 +47,8 @@ export default function ChangeAllowance() {
       setLoading(true);
       const endpoint =
         originalAllowance === 50 && customerId
-          ? `/api/create-checkout-session?email=${session?.user?.email}`
-          : `/api/update-subscription?customerId=${customerId}`;
+          ? `/api/stripe/create-checkout-session?email=${session?.user?.email}`
+          : `/api/stripe/update-subscription?customerId=${customerId}`;
 
       const response = await fetch(`${endpoint}`, {
         method: "POST",
