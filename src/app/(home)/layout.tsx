@@ -24,12 +24,15 @@ export const metadata: Metadata = {
   keywords: [
     "form API",
     "form management",
+    "reformify",
     "API forms",
     "form submissions",
     "form validation",
     "form notifications",
     "developer tools",
     "form backend",
+    "form handling",
+    "form service",
   ],
   openGraph: {
     title: "Reformify | Simple Form API",
@@ -38,21 +41,32 @@ export const metadata: Metadata = {
     siteName: "Reformify",
     images: [
       {
-        url: "https://reformify.dev/og-image.png",
+        url: "https://utfs.io/f/STFL4gpOFkcnKGHdZ2503cBJUNOVkoThR56gaFGlrfuEyAY4",
         width: 1200,
         height: 630,
         alt: "Reformify - Simple Form API",
       },
     ],
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Reformify | Simple Form API",
     description: "Create and manage forms easily with Reformify's simple API",
-    images: ["https://reformify.dev/og-image.png"],
+    images: [
+      "https://utfs.io/f/STFL4gpOFkcnKGHdZ2503cBJUNOVkoThR56gaFGlrfuEyAY4",
+    ],
+    creator: "@garrettpost",
   },
   metadataBase: new URL("https://reformify.dev"),
+  robots: {
+    index: true,
+    follow: true,
+  },
+  authors: [{ name: "Garrett Post", url: "https://garrett.one" }],
+  viewport: "width=device-width, initial-scale=1",
+  themeColor: "#EF6461",
 };
 
 export default function RootLayout({

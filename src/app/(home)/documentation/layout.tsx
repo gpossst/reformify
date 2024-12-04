@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Reformify",
     images: [
       {
-        url: "https://reformify.dev/og-image.png", // Add your OG image
+        url: "https://utfs.io/f/STFL4gpOFkcnKGHdZ2503cBJUNOVkoThR56gaFGlrfuEyAY4", // Add your OG image
         width: 1200,
         height: 630,
         alt: "Reformify Documentation",
@@ -34,7 +34,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Reformify Documentation",
     description: "Complete documentation for Reformify's form API",
-    images: ["https://reformify.dev/og-image.png"], // Add your Twitter card image
+    images: [
+      "https://utfs.io/f/STFL4gpOFkcnKGHdZ2503cBJUNOVkoThR56gaFGlrfuEyAY4", // Add your Twitter card image
+    ],
   },
 };
 

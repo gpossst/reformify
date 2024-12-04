@@ -28,10 +28,6 @@ function NewFormForm() {
       setError("Please enter a form title");
       return false;
     }
-    if (!description.trim()) {
-      setError("Please enter a form description");
-      return false;
-    }
 
     if (sendConfirmation && !confirmationEmail.trim()) {
       setError("Please enter confirmation email text");

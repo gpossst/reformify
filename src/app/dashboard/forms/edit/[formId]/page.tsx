@@ -43,10 +43,10 @@ export default function EditForm({ params }: { params: { formId: string } }) {
         setTitle(data.title);
         setDescription(data.description || "");
         setElements(data.elements || []);
-        setRequireEmail(data.requireEmail || false);
-        setConfirmationEmail(data.confirmationEmail || "");
-        setNotifyOnEntry(data.notifyOnEntry || false);
-        setSendConfirmation(data.sendConfirmation || false);
+        setRequireEmail(data.emailSettings.requireEmail || false);
+        setConfirmationEmail(data.emailSettings.confirmationEmail || "");
+        setNotifyOnEntry(data.emailSettings.notifyOnEntry || false);
+        setSendConfirmation(data.emailSettings.sendConfirmation || false);
       } catch (error) {
         console.error("Error fetching form:", error);
       } finally {
@@ -121,10 +121,12 @@ export default function EditForm({ params }: { params: { formId: string } }) {
             formId,
             title: title.trim(),
             description: description.trim(),
-            requireEmail,
-            confirmationEmail,
-            notifyOnEntry,
-            sendConfirmation,
+            emailSettings: {
+              requireEmail,
+              confirmationEmail,
+              notifyOnEntry,
+              sendConfirmation,
+            },
             elements: elements.map(({ name, required, type }) => ({
               name: name.trim(),
               required,
