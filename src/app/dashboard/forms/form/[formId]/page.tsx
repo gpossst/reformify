@@ -1,9 +1,8 @@
 import FormPageContent from "@/app/components/Dashboard/FormPageContent";
 import React from "react";
 
-function Page({ params }: { params: { formId: string } }) {
-  // @ts-expect-error Params works
-  const formId = React.use(params).formId;
+async function Page({ params }: { params: Promise<{ formId: string }> }) {
+  const { formId } = await params;
   return <FormPageContent formId={formId} />;
 }
 

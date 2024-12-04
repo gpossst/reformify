@@ -66,8 +66,8 @@ function Page() {
           <div className="pb-2">{userData?.name}</div>
           <div className="font-semibold">Email</div>
           <div className="pb-2">{userData?.email}</div>
-          <div className="font-semibold">Plan</div>
-          <div className="pb-2">{userData?.plan}</div>
+          <div className="font-semibold">Allowance</div>
+          <div className="pb-2">{userData?.allowance}</div>
           <div className="font-semibold">Customer ID</div>
           <div className="pb-2">{userData?.customerId}</div>
           <div className="font-semibold">Subscription ID</div>
