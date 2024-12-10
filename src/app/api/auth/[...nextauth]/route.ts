@@ -21,6 +21,28 @@ const handler = NextAuth({
       Users: "users",
     },
   }),
+  debug: true,
+  logger: {
+    error: (code, ...message) => {
+      console.error(code, message);
+    },
+    warn: (code, ...message) => {
+      console.warn(code, message);
+    },
+    debug: (code, ...message) => {
+      console.debug(code, message);
+    },
+  },
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log("Sign-in attempt:", { user, account, profile });
+      return true;
+    },
+    async redirect({ url, baseUrl }) {
+      console.log("Redirect:", { url, baseUrl });
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
+  },
   useSecureCookies: true,
   cookies: {
     sessionToken: {
