@@ -4,6 +4,7 @@ import { Fredoka, Merriweather_Sans } from "next/font/google";
 import "@/app/globals.css";
 import DashSidebar from "../components/Dashboard/DashSidebar";
 import AuthCheck from "../components/Other/AuthCheck";
+import { Analytics } from "@vercel/analytics/react";
 
 const fredoka = Fredoka({
   subsets: ["latin"],
@@ -85,6 +86,7 @@ export default function RootLayout({
           <div className="flex-1 w-full max-h-full bg-background rounded-xl shadow-2xl">
             {children}
             <AuthCheck />
+            <Analytics />
           </div>
         </div>
       </body>

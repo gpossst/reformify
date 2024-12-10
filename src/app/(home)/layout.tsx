@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Fredoka, Merriweather_Sans } from "next/font/google";
 import "@/app/globals.css";
 import HomeNav from "@/app/components/Home/HomeNav";
+import { Analytics } from "@vercel/analytics/react";
 
 const fredoka = Fredoka({
   subsets: ["latin"],
@@ -81,6 +82,7 @@ export default function RootLayout({
       >
         <HomeNav />
         <div className="h-full">{children}</div>
+        <Analytics />
       </body>
     </html>
   );
