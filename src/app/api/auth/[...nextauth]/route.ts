@@ -4,15 +4,11 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/app/lib/mongodb";
 
 const handler = NextAuth({
+  debug: true,
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
-      authorization: {
-        params: {
-          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/github`,
-        },
-      },
     }),
   ],
   adapter: MongoDBAdapter(clientPromise, {
@@ -21,28 +17,7 @@ const handler = NextAuth({
       Users: "users",
     },
   }),
-  debug: true,
-  logger: {
-    error: (code, ...message) => {
-      console.error(code, message);
-    },
-    warn: (code, ...message) => {
-      console.warn(code, message);
-    },
-    debug: (code, ...message) => {
-      console.debug(code, message);
-    },
-  },
-  callbacks: {
-    async signIn({ user, account, profile }) {
-      console.log("Sign-in attempt:", { user, account, profile });
-      return true;
-    },
-    async redirect({ url, baseUrl }) {
-      console.log("Redirect:", { url, baseUrl });
-      return url.startsWith(baseUrl) ? url : baseUrl;
-    },
-  },
+  // Add these configurations
   useSecureCookies: true,
   cookies: {
     sessionToken: {
