@@ -32,7 +32,7 @@ export default function GitHubSignIn({ size }: { size: number }) {
       return session ? (
         <button
           className="px-2 flex items-center gap-2 text-foreground text-lg font-semibold py-1 bg-accent border-accent border-2 rounded-md hover:bg-accent"
-          onClick={() => router.push("/api/auth/callback/github")}
+          onClick={() => router.push("/dashboard")}
         >
           Dashboard
         </button>
