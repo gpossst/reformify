@@ -29,6 +29,11 @@ const handler = NextAuth({
       },
     },
   },
+  callbacks: {
+    redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
