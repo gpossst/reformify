@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
@@ -9,7 +8,6 @@ const handler = NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
-      callbackUrl: "https://reformify.dev/api/auth/callback/github",
     }),
   ],
   adapter: MongoDBAdapter(clientPromise, {
@@ -18,6 +16,19 @@ const handler = NextAuth({
       Users: "users",
     },
   }),
+  // Add these configurations
+  useSecureCookies: true,
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
