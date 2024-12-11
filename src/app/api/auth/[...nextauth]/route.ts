@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
@@ -9,7 +8,6 @@ const handler = NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
-      callbackUrl: "https://reformify.dev/api/auth/callback/github",
     }),
   ],
   adapter: MongoDBAdapter(clientPromise, {
@@ -18,6 +16,16 @@ const handler = NextAuth({
       Users: "users",
     },
   }),
+  callbacks: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async signIn({ user, account, profile }) {
+      return true;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async session({ session, user }) {
+      return session;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
