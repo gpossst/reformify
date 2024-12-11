@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import LoadIcon from "@/app/components/Other/LoadIcon";
 import { User } from "@/app/types/user";
 import DashButton from "@/app/components/Dashboard/DashButton";
+import SignOut from "@/app/components/Dashboard/SignOut";
 
 function Page() {
   const { data: session } = useSession();
@@ -52,7 +53,8 @@ function Page() {
         <div className="font-fredoka text-xl text-center font-bold text-foreground">
           Account
         </div>
-        <div className="flex-1 flex justify-end">
+        <div className="flex-1 flex justify-end gap-2">
+          <SignOut />
           <DashButton link="/dashboard/help" text="Help" />
         </div>
       </div>
