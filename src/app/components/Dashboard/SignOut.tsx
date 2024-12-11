@@ -6,7 +6,7 @@ export default function SignOut() {
     <div>
       <button
         className="flex items-center gap-1 font-merriweather bg-accent text-background px-2 py-1 rounded-md"
-        onClick={() => signOut()}
+        onClick={() => signOut({ callbackUrl: "/" })}
       >
         Sign Out
       </button>
