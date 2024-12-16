@@ -141,11 +141,11 @@ function validateElementValue(
 
 // Add CORS headers helper function
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function corsHeaders(_origin: string) {
+function corsHeaders(origin: string) {
   return {
     "Access-Control-Allow-Origin": "*", // Allow all origins
     "Access-Control-Allow-Methods": "POST, OPTIONS, GET",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Headers": "Content-Type, x-api-key",
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Max-Age": "86400", // 24 hours cache
   };
@@ -161,30 +161,20 @@ export async function OPTIONS(_request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  // Add detailed logging
-  console.log("All headers:", Object.fromEntries(request.headers));
-  console.log(
-    "Auth header specifically:",
-    request.headers.get("Authorization")
-  );
-
-  const apiKey = request.headers.get("Authorization");
+  const apiKey = request.headers.get("x-api-key");
 
   if (!apiKey) {
-    // Log when API key is missing
-    console.log("API key missing from request");
     return NextResponse.json(
       { error: "API key is required" },
       {
         status: 400,
-        headers: corsHeaders("*"), // Make sure to add CORS headers even on errors
+        headers: corsHeaders("*"),
       }
     );
   }
 
   try {
     const { entry } = await request.json();
-    console.log("Received entry data:", entry); // Log the entry data
 
     // Validate entry exists and is an object
     if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
@@ -430,7 +420,6 @@ export async function POST(request: NextRequest) {
         await Promise.all(emailPromises);
       }
     } catch (emailError) {
-      console.error("Failed to send emails:", emailError);
       return NextResponse.json(
         {
           error: "Failed to send emails, but the entry was submitted",

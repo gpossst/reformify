@@ -55,14 +55,14 @@ function FormRequest({
       curl: `curl -X POST \\
   https://reformify.dev/api/entry/new \\
   -H 'Content-Type: application/json' \\
-  -H 'Authorization: FORM_API_KEY' \\
+  -H 'x-api-key: FORM_API_KEY' \\
   -d '${JSON.stringify(payload, null, 2)}'`,
 
       javascript: `fetch('https://reformify.dev/api/entry/new', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'FORM_API_KEY'
+    'x-api-key': 'FORM_API_KEY'
   },
   body: JSON.stringify(${JSON.stringify(payload, null, 2)})
 })`,
@@ -76,7 +76,7 @@ response = requests.post(
     json=payload,
     headers={
         'Content-Type': 'application/json',
-        'Authorization': 'FORM_API_KEY'
+        'x-api-key': 'FORM_API_KEY'
     }
 )`,
     };
