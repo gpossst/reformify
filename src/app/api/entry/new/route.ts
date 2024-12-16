@@ -161,14 +161,30 @@ export async function OPTIONS(_request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  // Add detailed logging
+  console.log("All headers:", Object.fromEntries(request.headers));
+  console.log(
+    "Auth header specifically:",
+    request.headers.get("Authorization")
+  );
+
   const apiKey = request.headers.get("Authorization");
 
   if (!apiKey) {
-    return NextResponse.json({ error: "API key is required" }, { status: 400 });
+    // Log when API key is missing
+    console.log("API key missing from request");
+    return NextResponse.json(
+      { error: "API key is required" },
+      {
+        status: 400,
+        headers: corsHeaders("*"), // Make sure to add CORS headers even on errors
+      }
+    );
   }
 
   try {
     const { entry } = await request.json();
+    console.log("Received entry data:", entry); // Log the entry data
 
     // Validate entry exists and is an object
     if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
