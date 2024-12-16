@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": "defa8381c60832b2975a6e7e17c0e94a",
+        "x-api-key": process.env.HELP_API_KEY || "",
         Origin: "https://reformify.dev",
       },
       body: JSON.stringify(formData),
