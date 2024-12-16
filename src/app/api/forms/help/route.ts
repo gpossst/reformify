@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   console.log("Form Data:", formData);
   console.log("API Key:", process.env.HELP_FORM_KEY);
   try {
-    const response = await fetch("http://localhost:3000/api/entry/new", {
+    const response = await fetch("https://reformify.dev/api/entry/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
