@@ -47,7 +47,6 @@ function Page() {
         problem: "",
         description: "",
       });
-      console.log(response);
     } catch (error) {
       console.error("Error submitting help request:", error);
       alert("An error occurred. Please try again.");
