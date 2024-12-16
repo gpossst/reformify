@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
-  const formData = await req.json();
+export async function POST(request: NextRequest) {
+  const apiKey = request.headers.get("Authorization");
+  console.log("Received API Key:", apiKey);
+
+  if (!apiKey) {
+    return NextResponse.json({ error: "API key is required" }, { status: 400 });
+  }
+
+  const formData = await request.json();
   console.log("Form Data:", formData);
   console.log("API Key:", process.env.HELP_FORM_KEY);
   try {
@@ -9,7 +16,7 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "0c71ac8c82c48093d4cef0382309843e",
+        Authorization: "defa8381c60832b2975a6e7e17c0e94a",
       },
       body: JSON.stringify(formData),
     });
