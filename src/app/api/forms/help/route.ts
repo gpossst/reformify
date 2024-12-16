@@ -1,25 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
-  const apiKey = request.headers.get("Authorization");
-  console.log("Received API Key:", apiKey);
-
-  if (!apiKey) {
-    return NextResponse.json({ error: "API key is required" }, { status: 400 });
-  }
-
-  const formData = await request.json();
+export async function POST(req: NextRequest) {
+  const formData = await req.json();
   console.log("Form Data:", formData);
-  console.log("API Key:", process.env.HELP_FORM_KEY);
+  console.log("Making request to reformify.dev...");
   try {
     const response = await fetch("https://reformify.dev/api/entry/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "defa8381c60832b2975a6e7e17c0e94a",
+        Origin: "https://reformify.dev",
       },
       body: JSON.stringify(formData),
     });
+
+    const responseData = await response.json();
+    console.log("Response status:", response.status);
+    console.log("Response data:", responseData);
 
     if (response.ok) {
       return NextResponse.json({
@@ -27,8 +25,12 @@ export async function POST(request: NextRequest) {
       });
     } else {
       return NextResponse.json(
-        { error: "Failed to submit help request" },
-        { status: 400 }
+        {
+          error: `Failed to submit help request: ${
+            responseData.error || "Unknown error"
+          }`,
+        },
+        { status: response.status }
       );
     }
   } catch (error) {
