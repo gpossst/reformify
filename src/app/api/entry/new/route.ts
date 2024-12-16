@@ -139,6 +139,27 @@ function validateElementValue(
   }
 }
 
+// Add CORS headers helper function
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function corsHeaders(_origin: string) {
+  return {
+    "Access-Control-Allow-Origin": "*", // Allow all origins
+    "Access-Control-Allow-Methods": "POST, OPTIONS, GET",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Max-Age": "86400", // 24 hours cache
+  };
+}
+
+// Handle OPTIONS request for CORS preflight
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function OPTIONS(_request: NextRequest) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: corsHeaders("*"),
+  });
+}
+
 export async function POST(request: NextRequest) {
   const apiKey = request.headers.get("Authorization");
 
