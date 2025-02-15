@@ -17,7 +17,8 @@
         "summary": "Create a new form",
         "security": [
           {
-            "customerId": []
+            "customerId": [],
+            "apyAuthorization": []
           }
         ],
         "requestBody": {
@@ -45,6 +46,7 @@
                     "description": "Form elements/fields",
                     "items": {
                       "type": "object",
+                      "required": ["type", "name"],
                       "properties": {
                         "type": {
                           "type": "string",
@@ -54,26 +56,35 @@
                           "type": "string"
                         },
                         "required": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "default": false
                         }
                       }
                     }
                   },
-                  "requireEmail": {
-                    "type": "boolean",
-                    "description": "Whether email is required for submission"
-                  },
-                  "confirmationEmail": {
-                    "type": "string",
-                    "description": "Custom confirmation email text"
-                  },
-                  "notifyOnEntry": {
-                    "type": "boolean",
-                    "description": "Whether to notify admin via email on new submissions"
-                  },
-                  "sendConfirmation": {
-                    "type": "boolean",
-                    "description": "Whether to send confirmation emails to submitters - requires requireEmail to be true"
+                  "emailSettings": {
+                    "type": "object",
+                    "properties": {
+                      "requireEmail": {
+                        "type": "boolean",
+                        "description": "Whether email is required for submission",
+                        "default": false
+                      },
+                      "confirmationEmail": {
+                        "type": "string",
+                        "description": "Custom confirmation email text"
+                      },
+                      "notifyOnEntry": {
+                        "type": "boolean",
+                        "description": "Whether to notify admin via email on new submissions",
+                        "default": false
+                      },
+                      "sendConfirmation": {
+                        "type": "boolean",
+                        "description": "Whether to send confirmation emails to submitters - requires requireEmail to be true",
+                        "default": false
+                      }
+                    }
                   }
                 }
               }
@@ -83,6 +94,14 @@
         "responses": {
           "200": {
             "description": "Form created successfully",
+            "headers": {
+              "x-apy-atoms": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Number of atoms consumed by this request"
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -116,7 +135,8 @@
         "summary": "Submit a form entry",
         "security": [
           {
-            "customerId": []
+            "customerId": [],
+            "apyAuthorization": []
           }
         ],
         "requestBody": {
@@ -165,6 +185,14 @@
         "responses": {
           "200": {
             "description": "Entry submitted successfully",
+            "headers": {
+              "x-apy-atoms": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Number of atoms consumed by this request"
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -211,7 +239,8 @@
         "summary": "Get form submissions",
         "security": [
           {
-            "customerId": []
+            "customerId": [],
+            "apyAuthorization": []
           }
         ],
         "requestBody": {
@@ -233,6 +262,14 @@
         "responses": {
           "200": {
             "description": "List of form submissions",
+            "headers": {
+              "x-apy-atoms": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Number of atoms consumed by this request"
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -285,6 +322,12 @@
         "name": "x-customer-id",
         "in": "header",
         "description": "Customer ID provided to authenticate requests. Must be included in the x-customer-id header."
+      },
+      "apyAuthorization": {
+        "type": "apiKey",
+        "name": "x-apy-authorization",
+        "in": "header",
+        "description": "Shared secret for APY authorization. Must match the server's configured secret."
       }
     }
   }

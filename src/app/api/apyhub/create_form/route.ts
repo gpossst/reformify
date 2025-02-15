@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
 
 export async function POST(request: NextRequest) {
+  const sharedSecret = request.headers.get("x-apy-authorization");
+  if (sharedSecret !== process.env.APYHUB_SHARED_SECRET) {
+    return NextResponse.json(
+      { error: "Invalid shared secret" },
+      { status: 401 }
+    );
+  }
+
   const userId = request.headers.get("x-customer-id");
 
   if (!userId) {
@@ -56,7 +64,11 @@ export async function POST(request: NextRequest) {
 
     await client.close();
 
-    return NextResponse.json(form);
+    return NextResponse.json(form, {
+      headers: {
+        "x-apy-atoms": "10",
+      },
+    });
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   }

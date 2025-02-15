@@ -162,6 +162,14 @@ export async function OPTIONS(_request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const userId = request.headers.get("x-customer-id");
+  const sharedSecret = request.headers.get("x-apy-authorization");
+
+  if (sharedSecret !== process.env.APYHUB_SHARED_SECRET) {
+    return NextResponse.json(
+      { error: "Invalid shared secret" },
+      { status: 401 }
+    );
+  }
 
   if (!userId) {
     return NextResponse.json(
@@ -393,12 +401,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Entry submitted successfully",
-      entryId: newEntry.insertedId,
-      timestamp: new Date(),
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Entry submitted successfully",
+        entryId: newEntry.insertedId,
+        timestamp: new Date(),
+      },
+      {
+        headers: {
+          "x-apy-atoms": "14",
+        },
+      }
+    );
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
