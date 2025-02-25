@@ -3,6 +3,7 @@ import { MongoClient, ObjectId } from "mongodb";
 
 export async function POST(request: NextRequest) {
   const sharedSecret = request.headers.get("x-apy-authorization");
+
   if (sharedSecret !== process.env.APYHUB_SHARED_SECRET) {
     return NextResponse.json(
       { error: "Invalid shared secret" },
@@ -13,7 +14,10 @@ export async function POST(request: NextRequest) {
   const userId = request.headers.get("x-customer-id");
 
   if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { error: "Unauthorized: No User Id" },
+      { status: 401 }
+    );
   }
 
   try {

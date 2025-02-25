@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
 
   if (!userId) {
     return NextResponse.json(
-      { error: "User ID is required" },
+      { error: "Unauthorized: No User Id" },
       {
         status: 400,
         headers: corsHeaders("*"),

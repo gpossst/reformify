@@ -12,7 +12,10 @@ export async function POST(request: NextRequest) {
 
   const userId = request.headers.get("x-customer-id");
   if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { error: "Unauthorized: No User Id" },
+      { status: 401 }
+    );
   }
 
   // Form ID
