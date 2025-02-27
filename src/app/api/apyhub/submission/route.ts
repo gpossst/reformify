@@ -140,44 +140,48 @@ function validateElementValue(
 }
 
 // Add CORS headers helper function
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function corsHeaders(origin: string) {
+function corsHeaders() {
   return {
-    "Access-Control-Allow-Origin": "*", // Allow all origins
-    "Access-Control-Allow-Methods": "POST, OPTIONS, GET",
-    "Access-Control-Allow-Headers": "Content-Type, x-api-key",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Content-Type, x-apy-authorization, x-customer-id",
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Max-Age": "86400", // 24 hours cache
   };
 }
 
 // Handle OPTIONS request for CORS preflight
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function OPTIONS(_request: NextRequest) {
+export async function OPTIONS() {
   return new NextResponse(null, {
-    status: 200,
-    headers: corsHeaders("*"),
+    status: 204,
+    headers: corsHeaders(),
   });
 }
 
 export async function POST(request: NextRequest) {
+  // Handle OPTIONS request (preflight)
+  if (request.method === "OPTIONS") {
+    return new NextResponse(null, {
+      status: 204,
+      headers: corsHeaders(),
+    });
+  }
+
   const userId = request.headers.get("x-customer-id");
   const sharedSecret = request.headers.get("x-apy-authorization");
 
   if (sharedSecret !== process.env.APYHUB_SHARED_SECRET) {
     return NextResponse.json(
       { error: "Invalid shared secret" },
-      { status: 401 }
+      { status: 401, headers: corsHeaders() }
     );
   }
 
   if (!userId) {
     return NextResponse.json(
       { error: "Unauthorized: No User Id" },
-      {
-        status: 400,
-        headers: corsHeaders("*"),
-      }
+      { status: 401, headers: corsHeaders() }
     );
   }
 
@@ -188,7 +192,7 @@ export async function POST(request: NextRequest) {
     if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
       return NextResponse.json(
         { error: "Invalid entry format" },
-        { status: 400 }
+        { status: 400, headers: corsHeaders() }
       );
     }
 
@@ -199,7 +203,10 @@ export async function POST(request: NextRequest) {
 
     if (!form) {
       await client.close();
-      return NextResponse.json({ error: "Form not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Form not found" },
+        { status: 404, headers: corsHeaders() }
+      );
     }
 
     // Validate each form element
@@ -217,7 +224,7 @@ export async function POST(request: NextRequest) {
           await client.close();
           return NextResponse.json(
             { error: `Field "${element.name}" is required` },
-            { status: 400 }
+            { status: 400, headers: corsHeaders() }
           );
         }
       } else {
@@ -257,7 +264,7 @@ export async function POST(request: NextRequest) {
           {
             error: `Invalid value for field "${element.name}": ${validation.error}`,
           },
-          { status: 422 }
+          { status: 422, headers: corsHeaders() }
         );
       }
 
@@ -268,7 +275,7 @@ export async function POST(request: NextRequest) {
           await client.close();
           return NextResponse.json(
             { error: "Submission contains inappropriate content" },
-            { status: 422 }
+            { status: 422, headers: corsHeaders() }
           );
         }
 
@@ -277,7 +284,7 @@ export async function POST(request: NextRequest) {
           await client.close();
           return NextResponse.json(
             { error: "Submission contains potentially harmful content" },
-            { status: 422 }
+            { status: 422, headers: corsHeaders() }
           );
         }
 
@@ -293,7 +300,7 @@ export async function POST(request: NextRequest) {
         await client.close();
         return NextResponse.json(
           { error: `Invalid email: ${emailValidation.error}` },
-          { status: 422 }
+          { status: 422, headers: corsHeaders() }
         );
       }
 
@@ -311,7 +318,7 @@ export async function POST(request: NextRequest) {
             error:
               "Please wait at least 1 minute between submissions from the same email",
           },
-          { status: 429 }
+          { status: 429, headers: corsHeaders() }
         );
       }
     }
@@ -397,7 +404,7 @@ export async function POST(request: NextRequest) {
           error: "Failed to send emails, but the entry was submitted",
           emailError,
         },
-        { status: 500 }
+        { status: 500, headers: corsHeaders() }
       );
     }
 
@@ -410,6 +417,7 @@ export async function POST(request: NextRequest) {
       },
       {
         headers: {
+          ...corsHeaders(),
           "x-apy-atoms": "14",
         },
       }
@@ -418,7 +426,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to submit entry" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders() }
     );
   }
 }

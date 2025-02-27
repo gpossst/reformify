@@ -2,12 +2,28 @@ import { NextRequest, NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
 
 export async function POST(request: NextRequest) {
+  // Set CORS headers
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Content-Type, x-apy-authorization, x-customer-id",
+  };
+
+  // Handle OPTIONS request (preflight)
+  if (request.method === "OPTIONS") {
+    return new NextResponse(null, {
+      status: 204,
+      headers: corsHeaders,
+    });
+  }
+
   const sharedSecret = request.headers.get("x-apy-authorization");
 
   if (sharedSecret !== process.env.APYHUB_SHARED_SECRET) {
     return NextResponse.json(
       { error: "Invalid shared secret" },
-      { status: 401 }
+      { status: 401, headers: corsHeaders }
     );
   }
 
@@ -16,7 +32,7 @@ export async function POST(request: NextRequest) {
   if (!userId) {
     return NextResponse.json(
       { error: "Unauthorized: No User Id" },
-      { status: 401 }
+      { status: 401, headers: corsHeaders }
     );
   }
 
@@ -46,7 +62,7 @@ export async function POST(request: NextRequest) {
     if (isFormKeyUnique) {
       return NextResponse.json(
         { error: "Form key already exists" },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -70,10 +86,27 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(form, {
       headers: {
+        ...corsHeaders,
         "x-apy-atoms": "10",
       },
     });
   } catch (error) {
-    return NextResponse.json({ error: error }, { status: 500 });
+    return NextResponse.json(
+      { error: error },
+      { status: 500, headers: corsHeaders }
+    );
   }
 }
+
+// Export OPTIONS handler to support preflight requests
+export const OPTIONS = () => {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers":
+        "Content-Type, x-apy-authorization, x-customer-id",
+    },
+  });
+};
