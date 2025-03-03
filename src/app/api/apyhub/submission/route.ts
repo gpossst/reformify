@@ -171,7 +171,11 @@ export async function POST(request: NextRequest) {
   const userId = request.headers.get("x-customer-id");
   const sharedSecret = request.headers.get("x-apy-authorization");
 
-  if (sharedSecret !== process.env.APYHUB_SHARED_SECRET) {
+  // With this more robust comparison:
+  if (
+    !sharedSecret ||
+    sharedSecret.trim() !== process.env.APYHUB_SHARED_SECRET?.trim()
+  ) {
     return NextResponse.json(
       { error: "Invalid shared secret" },
       { status: 401, headers: corsHeaders() }
